@@ -13,21 +13,16 @@ public class Test implements FeatureListener {
 
 		// Button.ENTER.waitForPressAndRelease();
 
-		Motor.A.forward();
-		Motor.B.forward();
-
+		
 		while (!Button.ESCAPE.isDown()) {
 
-			if (us.getDistance() < 50) {
-
-				Motor.A.forward();
-				Motor.B.forward();
-
-			} else {
-
-				Motor.A.stop();
-				Motor.B.stop();
+			while(us.getDistance() < 50){
+				System.out.println("search...");
+				Motor.C.rotate(10);
 			}
+			System.out.println("Free Way !!");
+				
+			
 		}
 		//Button.waitForAnyPress();
 
@@ -37,6 +32,6 @@ public class Test implements FeatureListener {
 	public void featureDetected(Feature feature, FeatureDetector detector) {
 		int range = (int) feature.getRangeReading().getRange();
 		System.out.println("Range:" + range);
-
+		
 	}
 }
