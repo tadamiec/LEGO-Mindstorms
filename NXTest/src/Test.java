@@ -20,32 +20,38 @@ public class Test implements FeatureListener {
 		
 		System.out.println("Prototy 2 : Evasion Test");
 		boolean rightTested = false;
-		Motor.A.setSpeed(360);
+		Motor.A.setSpeed(270);
 		Motor.B.rotateTo(0);
 
 		while(!Button.ESCAPE.isDown()){
-			while(us.getDistance() < 50 && !TSleft.isPressed() && !TSright.isPressed()){
-				if(!rightTested){
-					Motor.A.rotate(-720);
-					timer.msDelay(1000);
-					Motor.A.forward();
+			while(us.getDistance() < 50 && !TSleft.isPressed() && !TSright.isPressed() && !rightTested){
+					Motor.A.rotate(-10);
 					Motor.B.rotateTo(30);
+					Motor.A.rotate(60);
 					rightTested = true;
-					timer.msDelay(1000);
 
-				}
-				else{
-					Motor.A.rotate(-720);
-					timer.msDelay(1000);
-					Motor.A.forward();
-					Motor.B.rotateTo(-30);
-					rightTested = false;
-					timer.msDelay(1000);
-
-				}
+//				else{
+//					Motor.A.rotate(-180);
+//					Motor.A.forward();
+//					Motor.B.rotateTo(-30);
+//					rightTested = false;
+//					timer.msDelay(1000);
+//
+//				}
 //				if(TSleft.isPressed() || TSright.isPressed())
 //					break;
 			}
+			
+			while(us.getDistance() < 50 && !TSleft.isPressed() && !TSright.isPressed() && rightTested){
+				Motor.B.rotateTo(30);
+				Motor.A.rotate(-60);
+				Motor.B.rotate(-30);
+				Motor.A.rotate(60);
+				rightTested = false;
+			}
+			
+			
+			
 			
 //			if(ts.isPressed()){
 //				Motor.B.rotateTo(30);
@@ -66,15 +72,14 @@ public class Test implements FeatureListener {
 			
 			while(TSright.isPressed() && !TSleft.isPressed()){
 				Motor.B.rotateTo(-10);
-				timer.msDelay(2000);
+				Motor.A.backward();
 			}
 			while(TSleft.isPressed() && !TSright.isPressed()){
 				Motor.B.rotateTo(10);
-				timer.msDelay(2000);
+				Motor.A.backward();
 			}
 			while(TSleft.isPressed() && TSright.isPressed()){
 				Motor.A.backward();
-				timer.msDelay(2000);
 			}
 			Motor.B.rotateTo(0);
 			Motor.A.forward();
