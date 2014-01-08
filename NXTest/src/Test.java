@@ -16,7 +16,7 @@ public class Test implements FeatureListener {
 		Motor.A.forward();
 		Motor.B.forward();
 
-		while (true) {
+		while (!Button.ESCAPE.isDown()) {
 
 			if (us.getDistance() < 50) {
 
