@@ -20,12 +20,10 @@ public class Test implements FeatureListener {
 				System.out.println("search...");
 				Motor.C.rotate(10);
 			}
-			System.out.println("Free Way !!");
-				
+			System.out.println("Free Way !!");	
 			
 		}
 		//Button.waitForAnyPress();
-
 	}
 
 	@Override
