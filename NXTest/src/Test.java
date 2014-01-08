@@ -96,7 +96,6 @@ public class Test implements FeatureListener {
 		}
 		
 		//Button.waitForAnyPress();
-
 	}
 
 	@Override
