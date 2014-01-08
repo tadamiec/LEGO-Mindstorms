@@ -24,21 +24,27 @@ public class Test implements FeatureListener {
 		Motor.B.rotateTo(0);
 
 		while(!Button.ESCAPE.isDown()){
-			while(us.getDistance() < 50 && !(TSleft.isPressed() && TSright.isPressed())){
+			while(us.getDistance() < 50 && !TSleft.isPressed() && !TSright.isPressed()){
 				if(!rightTested){
+					Motor.A.rotate(-720);
+					timer.msDelay(1000);
+					Motor.A.forward();
 					Motor.B.rotateTo(30);
 					rightTested = true;
-					timer.msDelay(2000);
+					timer.msDelay(1000);
 
 				}
 				else{
+					Motor.A.rotate(-720);
+					timer.msDelay(1000);
+					Motor.A.forward();
 					Motor.B.rotateTo(-30);
 					rightTested = false;
-					timer.msDelay(2000);
+					timer.msDelay(1000);
 
 				}
-				if(TSleft.isPressed() || TSright.isPressed())
-					break;
+//				if(TSleft.isPressed() || TSright.isPressed())
+//					break;
 			}
 			
 //			if(ts.isPressed()){
