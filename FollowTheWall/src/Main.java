@@ -46,13 +46,14 @@ public class Main {
 		int d2 = 20;
 		Motor.A.setSpeed(360);
 
-		while (!Button.ESCAPE.isDown()) {
+		while(!Button.ESCAPE.isDown()){
+			Motor.B.rotateTo(0);
 
 			//straight
-			if (us.getDistance() < d2 && us.getDistance() > d1) {
-				turn(TSright, TSleft, us);
+			if( us.getDistance() < d2 && us.getDistance() > d1){ 
+				turn(TSright,TSleft,us);
+				System.out.println("Gerade aus !!!");
 
-				Motor.B.rotateTo(0);
 				Motor.A.forward();
 			//right
 			} else if (us.getDistance() > d2) {
