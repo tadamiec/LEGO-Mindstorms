@@ -3,7 +3,16 @@ import lejos.robotics.subsumption.*;
 
 public class FollowTheWall implements Behavior {
 	private boolean suppressed = false;
-
+	private UltrasonicSensor us;
+	private int d1;
+	private int d2;
+	
+	public FollowTheWall(SensorPort US, int i, int j){
+		us = new UltrasonicSensor(US);
+		d1 = i;
+		d2 = j;
+	}
+	
 	public boolean takeControl() {
 	      return true;
 	   }
@@ -14,20 +23,12 @@ public class FollowTheWall implements Behavior {
 	  
 	   public void action() {
 		  suppressed = false;
-		  
-			if (us.getDistance() > d2) {
-				collision(TSright,TSleft,us);
-
-				
+			if( us.getDistance() < d2 && us.getDistance() > d1)
+				Motor.B.rotateTo(0);
+			if (us.getDistance() > d2)
 				Motor.B.rotateTo(Math.min(2*(us.getDistance()-d2),30));
-				
-
-			}
-			else if (us.getDistance() < d1){
-				collision(TSright,TSleft,us);
-
+			else if (us.getDistance() < d1)
 				Motor.B.rotateTo(Math.max(2*(us.getDistance()-d1),-30) );
-			}
 	
 			Motor.B.rotateTo(0);
 			Motor.A.forward();
@@ -35,6 +36,9 @@ public class FollowTheWall implements Behavior {
 		  while( !suppressed )
 			  Thread.yield();
 
-	  }
-
+	  
+			
+	   }
+	 
 }
+
