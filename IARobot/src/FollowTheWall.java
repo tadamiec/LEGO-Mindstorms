@@ -19,6 +19,7 @@ public class FollowTheWall implements Behavior {
 
 	public void suppress() {
 		suppressed = true;
+		Motor.A.stop();
 	}
 
 	public void action() {
@@ -44,7 +45,6 @@ public class FollowTheWall implements Behavior {
 		
 		suppress();
 		
-		Motor.A.stop();
 		
 
 	}

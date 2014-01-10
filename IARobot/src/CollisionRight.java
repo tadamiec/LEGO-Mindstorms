@@ -19,6 +19,8 @@ public class CollisionRight implements Behavior{
 	
 	public void suppress() {
 		suppressed = true;
+		Motor.B.rotateTo(0);
+		Motor.A.stop();
 	}
 	
 	public void action() {
@@ -28,8 +30,8 @@ public class CollisionRight implements Behavior{
 		Motor.A.rotate(360);
 		while(Motor.A.isMoving() && !suppressed )
 			Thread.yield();
-		Motor.B.rotateTo(0);
-		Motor.A.stop();
+		suppress();
+		
 	}
 }
 
