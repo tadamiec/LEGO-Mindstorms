@@ -19,11 +19,12 @@ public class CollisionLeft implements Behavior {
 	
 	public void suppress() {
 		suppressed = true;
-		Motor.B.rotateTo(0);
-		Motor.A.stop();
+		
 	}
 	
 	public void action() {
+		LCD.clear();
+		LCD.drawString("Es gibt ein object an meinem Links", 0, 0);
 		Motor.B.rotateTo(0);
 		Motor.A.rotate(-360);
 		Motor.B.rotateTo(15);
@@ -31,6 +32,9 @@ public class CollisionLeft implements Behavior {
 		while(Motor.A.isMoving() && !suppressed )
 			Thread.yield();
 		suppress();
+		Motor.B.rotateTo(0);
+		Motor.A.stop();
+		LCD.clear();
 
 	}
 }
