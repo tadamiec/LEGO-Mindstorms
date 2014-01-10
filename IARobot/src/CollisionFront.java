@@ -7,6 +7,13 @@ public class CollisionFront implements Behavior{
 	private TouchSensor TSleft;
 	private boolean suppressed = false;
 
+	public CollisionFront(SensorPort US, SensorPort SP1, SensorPort SP2){
+		us = new UltrasonicSensor(US);
+		TSleft = new TouchSensor(SP2);
+		TSright = new TouchSensor(SP1);
+	}
+
+	
 	public boolean takeControl(){
 		return (TSright.isPressed() && TSleft.isPressed());
    	}

@@ -9,12 +9,12 @@ public class CollisionRight implements Behavior{
 	private TouchSensor TSright;
 
 	public CollisionRight(SensorPort SP1, SensorPort SP2){
-		TSleft = new TouchSensor(SP1);
-		TSright = new TouchSensor(SP2);
+		TSleft = new TouchSensor(SP2);
+		TSright = new TouchSensor(SP1);
 	}
 
 	public boolean takeControl() {
-		return !TSleft.isPressed() || TSright.isPressed();
+		return !TSleft.isPressed() && TSright.isPressed();
 	}
 	
 	public void suppress() {
@@ -24,7 +24,7 @@ public class CollisionRight implements Behavior{
 	public void action() {
 		Motor.B.rotateTo(0);
 		Motor.A.rotate(-360);
-		Motor.B.rotateTo(30);
+		Motor.B.rotateTo(-15);
 		Motor.A.rotate(360);
 		while(Motor.A.isMoving() && !suppressed )
 			Thread.yield();
