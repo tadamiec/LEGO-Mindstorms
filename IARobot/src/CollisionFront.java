@@ -20,12 +20,13 @@ public class CollisionFront implements Behavior{
 
 	public void suppress(){
 		suppressed = true;
-		Motor.B.rotateTo(0);
-		Motor.A.stop();
+		
 	}
 
 	public void action() {
 		suppressed = false;
+		LCD.clear();
+		LCD.drawString("Es gibt ein object gerade aus !", 0, 0);
 		//Real Action
 		Motor.A.stop();
 		Motor.B.rotateTo(0);
@@ -48,6 +49,9 @@ public class CollisionFront implements Behavior{
 
 		//Clean up
 		suppress();
+		Motor.B.rotateTo(0);
+		Motor.A.stop();
+		LCD.clear();
 
 	}
 }
