@@ -10,8 +10,8 @@ public class FollowTheLine implements Behavior {
 	private boolean suppressed = false;
 	private LightSensor ls;
 
-	static List<Integer> directionLine = new ArrayList<Integer>();
-	static List<Integer> directionTarpoulin = new ArrayList<Integer>();
+	static List<Integer> lastDirectionLine = new ArrayList<Integer>();
+	static List<Integer> lastDirectionTarpoulin = new ArrayList<Integer>();
 
 	public FollowTheLine(SensorPort LS, int Dark, int Light) {
 		this.ls = new LightSensor(LS);
@@ -27,14 +27,14 @@ public class FollowTheLine implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		directionLine.add(0);
-		directionTarpoulin.add(1);
+		lastDirectionLine.add(0);
+		lastDirectionTarpoulin.add(1);
 		Motor.A.setSpeed(100);
 
 		while (!suppressed) {
 			// Line
 			if (ls.getLightValue() > 1100) {
-				LastTarpoulin = directionTarpoulin.size() - 1;
+				LastTarpoulin = lastDirectionTarpoulin.get(lastDirectionTarpoulin.size() - 1);
 				if (LastTarpoulin > 0) {
 					turnLine(10);
 				} else {
@@ -42,11 +42,11 @@ public class FollowTheLine implements Behavior {
 				}
 				// Tarpoulin
 			} else if (ls.getLightValue() > 600 && ls.getLightValue() < 900) {
-				LastLine = directionLine.size() - 1;
+				LastLine = lastDirectionLine.get(lastDirectionLine.size() - 1);
 				if (LastLine > 0) {
-					turnTarpaulin(10);
-				} else {
 					turnTarpaulin(-10);
+				} else {
+					turnTarpaulin(10);
 				}
 			}
 			Thread.yield();
@@ -63,12 +63,12 @@ public class FollowTheLine implements Behavior {
 	public static void turnLine(int angle) {
 		Motor.B.rotateTo(angle);
 		Motor.A.forward();
-		directionLine.add(Motor.A.getTachoCount());
+		lastDirectionLine.add(Motor.B.getTachoCount());
 	}
 
 	public static void turnTarpaulin(int angle) {
 		Motor.B.rotateTo(angle);
 		Motor.A.forward();
-		directionTarpoulin.add(Motor.A.getTachoCount());
+		lastDirectionTarpoulin.add(Motor.B.getTachoCount());
 	}
 }
