@@ -27,7 +27,7 @@ public class Main {
 		Behavior FTLB = new FollowTheLineB(SPort3, Dark, Light);
 		// Behavior LSC = new LightSensorCalibration(SPort3); //(LightS)
 
-		Behavior[] BArray = { FTW, SL, CR, CL, CF, FTB, FTLB, FTLL };
+		Behavior[] BArray = { /*FTW, SL, CR, CL, CF, FTB,*/ FTLB, FTLL };
 
 		Arbitrator Labyrinthe = new Arbitrator(BArray);
 
