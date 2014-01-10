@@ -7,8 +7,10 @@ public class FollowTheBridge implements Behavior {
 	private boolean suppressed = false;
 	private LightSensor ls;
 
-	public FollowTheBridge(SensorPort LS) {
+	public FollowTheBridge(SensorPort LS, int Dark, int Light) {
 		this.ls = new LightSensor(LS);
+		ls.setLow(Dark);
+		ls.setHigh(Light);
 	}
 
 	@Override
