@@ -22,12 +22,11 @@ public class Main {
 		Behavior CR = new CollisionRight(SPort1, SPort2); // (TSRight,TSLeft)
 		Behavior FTW = new FollowTheWall(SPort4, d1, d2); // (UltraS,..)
 		Behavior SL = new SearchLabyrinthe(SPort3, Dark, Light); // (LightS)
-		Behavior FTB = new FollowTheBridge(SPort3, Dark, Light);
-		Behavior FTLL = new FollowTheLineL(SPort3, Dark, Light);
-		Behavior FTLB = new FollowTheLineB(SPort3, Dark, Light);
+		Behavior FL = new FollowTheLine(SPort3, Dark, Light);
+		Behavior FB = new FollowTheBridge(SPort3, Dark, Light);
 		// Behavior LSC = new LightSensorCalibration(SPort3); //(LightS)
 
-		Behavior[] BArray = { /*FTW, SL, CR, CL, CF, FTB,*/ FTLB, FTLL };
+		Behavior[] BArray = { /*FTW, SL, CR, CL, CF,*/ FB, FL };
 
 		Arbitrator Labyrinthe = new Arbitrator(BArray);
 
