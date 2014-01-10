@@ -22,9 +22,9 @@ public class Main {
 		Behavior CR = new CollisionRight(SPort1, SPort2); //(TSRight,TSLeft)
 		Behavior FTW = new FollowTheWall(SPort4, d1, d2); //(UltraS,..)
 		Behavior SL = new SearchLabyrinthe(SPort3,Dark,Light); //(LightS)
-		Behavior LSC = new LightSensorCalibration(SPort3); //(LightS)
+		//Behavior LSC = new LightSensorCalibration(SPort3); //(LightS)
 		
-		Behavior [] BArray = {FTW,SL,CR,CL,CF,LSC};
+		Behavior [] BArray = {FTW,SL,CR,CL,CF};
 		
 		Arbitrator Labyrinthe = new Arbitrator(BArray);
 		
