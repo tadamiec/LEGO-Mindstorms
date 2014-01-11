@@ -40,14 +40,16 @@ public class FollowTheBridge implements Behavior {
 				Motor.B.rotateTo(10);
 				Motor.A.rotate(60);
 			}
-			if (!gapFound)
+			if (!gapFound){
 				Sound.playSample(pw, 25);
+				Motor.B.rotateTo(30);
+			}
 			gapFound = true;
 			Motor.A.forward();
 			if (ls.getLightValue() < 600) {
-				Motor.B.rotateTo(20);
+				Motor.B.rotate(5);
 			} else {
-				Motor.B.rotateTo(-10);
+				Motor.B.rotate(-5);
 			}
 			Thread.yield();
 			LCD.drawInt(ls.getLightValue(), 0, 0);
