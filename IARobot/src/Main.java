@@ -40,7 +40,7 @@ public class Main {
 		Behavior FB = new FollowTheBridge(SPort3, Dark, Light);
 		// Behavior LSC = new LightSensorCalibration(SPort3); //(LightS)
 
-		Behavior[] BArray = { /*FTW, SL, CR, CL, CF,*/ FB, FL };
+		Behavior[] BArray = { /*FTW, SL, CR, CL, CF,*/ FL, FB};
 >>>>>>> 62fa6012f7b54923bbb0de0610d0df2d92522656
 
 		Arbitrator Labyrinthe = new Arbitrator(BArray);
