@@ -29,16 +29,16 @@ public class FollowTheLine implements Behavior {
 		suppressed = false;
 		lastDirectionLine.add(0);
 		lastDirectionTarpoulin.add(1);
-		Motor.A.setSpeed(100);
+		Motor.A.setSpeed(200);
 
 		while (!suppressed) {
 			// Line
 			if (ls.getLightValue() > 1100) {
 				LastTarpoulin = lastDirectionTarpoulin.get(lastDirectionTarpoulin.size() - 1);
 				if (LastTarpoulin > 0) {
-					turnLine(10);
+					turnLine(-20);
 				} else {
-					turnLine(-10);
+					turnLine(10);
 				}
 				// Tarpoulin
 			} else if (ls.getLightValue() > 600 && ls.getLightValue() < 900) {
@@ -70,5 +70,9 @@ public class FollowTheLine implements Behavior {
 		Motor.B.rotateTo(angle);
 		Motor.A.forward();
 		lastDirectionTarpoulin.add(Motor.B.getTachoCount());
+	}
+	
+	public static void lineNotfound(){
+		
 	}
 }
