@@ -12,6 +12,8 @@ public class FollowTheLine implements Behavior {
 
 	static List<Integer> lastDirectionLine = new ArrayList<Integer>();
 	static List<Integer> lastDirectionTarpoulin = new ArrayList<Integer>();
+	
+	static int lastLineDirection, lastTarpoulinDirection;
 
 	public FollowTheLine(SensorPort LS, int Dark, int Light) {
 		this.ls = new LightSensor(LS);
@@ -34,19 +36,38 @@ public class FollowTheLine implements Behavior {
 		while (!suppressed) {
 			// Line
 			if (ls.getLightValue() > 1100) {
-				LastTarpoulin = lastDirectionTarpoulin.get(lastDirectionTarpoulin.size() - 1);
-				if (LastTarpoulin > 0) {
+				lastTarpoulinDirection = lastDirectionTarpoulin
+						.get(lastDirectionTarpoulin.size() - 1);
+				// Direction correction
+				if (lastTarpoulinDirection == 0000){
+					if (lastLineDirection > 0) {
+						turnLine(20);
+					} else {
+						turnLine(-10);
+					}
+				}
+				else if (lastTarpoulinDirection > 0) {
 					turnLine(-20);
 				} else {
 					turnLine(10);
 				}
 				// Tarpoulin
 			} else if (ls.getLightValue() > 600 && ls.getLightValue() < 900) {
-				LastLine = lastDirectionLine.get(lastDirectionLine.size() - 1);
-				if (LastLine > 0) {
+				lastLineDirection = lastDirectionLine.get(lastDirectionLine.size() - 1);
+				if (lastLineDirection > 0) {
 					turnTarpaulin(-10);
 				} else {
 					turnTarpaulin(10);
+				}
+				boolean goBack = false;
+				long startTime = System.currentTimeMillis();
+				while (!(ls.getLightValue() > 1100) || !goBack) {
+					long currentTime = System.currentTimeMillis();
+					if ((currentTime - startTime) > 2000) {
+						lineNotfound();
+						goBack = true;
+						lastDirectionTarpoulin.add(0000);
+					}
 				}
 			}
 			Thread.yield();
@@ -57,8 +78,6 @@ public class FollowTheLine implements Behavior {
 	public void suppress() {
 		suppressed = true;
 	}
-
-	static int LastLine, LastTarpoulin;
 
 	public static void turnLine(int angle) {
 		Motor.B.rotateTo(angle);
@@ -71,8 +90,8 @@ public class FollowTheLine implements Behavior {
 		Motor.A.forward();
 		lastDirectionTarpoulin.add(Motor.B.getTachoCount());
 	}
-	
-	public static void lineNotfound(){
-		
+
+	public static void lineNotfound() {
+		Motor.A.backward();
 	}
 }

@@ -8,6 +8,7 @@ import java.io.*;
 
 public class FollowTheBridge implements Behavior {
 	private boolean suppressed = false;
+	private boolean gapFound = false;
 	private LightSensor ls;
 
 	public FollowTheBridge(SensorPort LS, int Dark, int Light) {
@@ -24,35 +25,39 @@ public class FollowTheBridge implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-		Motor.A.setSpeed(100);
+		Motor.A.setSpeed(180);
+		Motor.B.rotateTo(0);
 		Motor.A.forward();
+		File pw = new File("power_up_8bit.wav");
 
-		while (((ls.getLightValue() > 430 && ls.getLightValue() < 550) || (ls
-				.getLightValue() > 950 && ls.getLightValue() < 1060))
-				&& !suppressed) {
+		while (  ls.getLightValue() < 1200
+				&& !suppressed ) {
 			// Wood
-			while (ls.getLightValue() > 950) {
+			while (ls.getLightValue() > 600 && !gapFound) {
 				Motor.A.stop();
 				Motor.B.rotateTo(-10);
-				Motor.A.rotate(180);
-				Motor.B.rotateTo(0);
-				Motor.A.rotate(180);
+				Motor.A.rotate(80);
+				Motor.B.rotateTo(10);
+				Motor.A.rotate(60);
 			}
-			// Gap
-			Motor.A.stop();
-			Motor.B.rotateTo(10);
+			if (!gapFound)
+				Sound.playSample(pw, 25);
+			gapFound = true;
 			Motor.A.forward();
-
+			if (ls.getLightValue() < 600) {
+				Motor.B.rotateTo(20);
+			} else {
+				Motor.B.rotateTo(-10);
+			}
 			Thread.yield();
+			LCD.drawInt(ls.getLightValue(), 0, 0);
 		}
 		suppress();
 
 		Motor.A.stop();
 		Motor.B.rotateTo(0);
-		LCD.clear();
-		LCD.drawString("OUT", 0, 0);
-		File pw = new File("power_up_8bit.wav");
-		Sound.playSample(pw, 0);
+		LCD.drawString("OUT", 1, 1);
+		LCD.drawInt(ls.getLightValue(), 2, 2);
 	}
 
 	@Override
