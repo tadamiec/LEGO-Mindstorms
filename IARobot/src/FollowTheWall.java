@@ -1,5 +1,13 @@
-import lejos.nxt.*;
-import lejos.robotics.subsumption.*;
+import java.io.File;
+
+import lejos.nxt.Button;
+import lejos.nxt.LCD;
+import lejos.nxt.LightSensor;
+import lejos.nxt.Motor;
+import lejos.nxt.SensorPort;
+import lejos.nxt.Sound;
+import lejos.nxt.UltrasonicSensor;
+import lejos.robotics.subsumption.Behavior;
 
 public class FollowTheWall implements Behavior {
 	private boolean suppressed = false;
@@ -10,8 +18,8 @@ public class FollowTheWall implements Behavior {
 	private int d2;
 	private int d3;
 
-
-	public FollowTheWall(SensorPort US,SensorPort LS, int i, int j,int k,int Dark,int Light){
+	public FollowTheWall(SensorPort US, SensorPort LS, int i, int j, int k,
+			int Dark, int Light) {
 		us = new UltrasonicSensor(US);
 		ls = new LightSensor(LS);
 		ls.setHigh(Light);
@@ -39,31 +47,28 @@ public class FollowTheWall implements Behavior {
 
 		Motor.A.forward();
 
-		while(ls.getLightValue() < 1100 && !Button.ESCAPE.isDown() && !suppressed ){
-			
-			if( (us.getDistance() < d2 && us.getDistance() > d1) 
+		while (/*ls.getLightValue() < 1200 &&*/ !Button.ESCAPE.isDown()
+				&& !suppressed) {
+
+			if ((us.getDistance() < d2 && us.getDistance() > d1)
 					|| (us.getDistance() < d3 && Motor.B.getTachoCount() >= 30))
 				Motor.B.rotateTo(0);
 			else if (us.getDistance() > d3)
-				Motor.B.rotateTo(Math.min(2*(us.getDistance()-d3),30));
+				Motor.B.rotateTo(Math.min(2 * (us.getDistance() - d3), 30));
 			else if (us.getDistance() > d2 && us.getDistance() < d3)
-				Motor.B.rotateTo(Math.min(2*(us.getDistance()-d2),10));
+				Motor.B.rotateTo(Math.min(2 * (us.getDistance() - d2), 10));
 			else if (us.getDistance() < d1)
-				Motor.B.rotateTo(Math.max(2*(us.getDistance()-d1),-10) );
-			
-			
-			
-			
+				Motor.B.rotateTo(Math.max(2 * (us.getDistance() - d1), -10));
+
 			Thread.yield();
 		}
-		
-		if(ls.getLightValue() > 1100)
-			labSolved = true;
-		suppress();	
+		File pw = new File("power_up_8bit.wav");
+		Sound.playSample(pw, 0);
+		labSolved = true;
+		suppress();
 		LCD.clear();
 		LCD.drawString("Ich mach nix", 0, 0);
 		Motor.A.stop();
 	}
 
 }
-

@@ -1,23 +1,39 @@
+import lejos.nxt.LightSensor;
+import lejos.nxt.Motor;
+import lejos.nxt.SensorPort;
 import lejos.robotics.subsumption.Behavior;
 
 
 public class EndLabyrinthe implements Behavior {
-	public boolean suppressed = true;
+	private boolean suppressed = false;
+
+	private LightSensor ls;
+	private boolean LabyrintheSolved = false;
 	
+	public EndLabyrinthe(SensorPort SP,int Dark, int Light){
+		ls = new LightSensor(SP);
+		ls.setHigh(Light);
+		ls.setLow(Dark);
+	}
 	
 	@Override
 	public boolean takeControl() {
-		return false;
+		return ls.getLightValue() > 1100;
 	}
 
 	@Override
 	public void action() {
 		suppressed = false;
 		
-		while(!suppressed)
+		Motor.A.stop();
+		
+		
+		
+		while(!LabyrintheSolved && !suppressed)
 			Thread.yield();
 		
 		suppress();
+		Main.level++;
 	}
 
 	@Override
