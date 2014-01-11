@@ -5,7 +5,6 @@ import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
 import lejos.robotics.subsumption.Behavior;
-import lejos.util.Delay;
 
 public class FollowTheLine implements Behavior {
 	private boolean suppressed = false;
@@ -13,13 +12,15 @@ public class FollowTheLine implements Behavior {
 
 	static int lastLineDirection, lastTarpoulinDirection;
 	static String specialOrder = "0000";
-	// specialOrder: 0000 - nothing, 0001 - correction
+	// specialOrder: 0000 - nothing, 0001 - set the correction beeing on the
+	// line, 0002 - do correction
 
 	static long currentTime;
 	static long startTimeLine;
 	long startTimeTourplin = 0;
 	static Boolean lineNotFound = false;
 	int angle = 15;
+	int time = 2000;
 
 	static File pw = new File("power_up_8bit.wav");
 
@@ -47,21 +48,31 @@ public class FollowTheLine implements Behavior {
 			if (ls.getLightValue() > 1100) {
 				// Direction correction
 				if (specialOrder.equals("0001")) {
-					specialOrder = "0000";
+					specialOrder = "0002";
 
-					correctTheDirection(angle);
-
-					if (lineNotFound) {
-						correctTheDirection(-angle);
-						lineNotFound = false;
-					}
 				} else if (lastTarpoulinDirection > 0) {
-					turnLine(-15);
+					turnLine(-angle);
 				} else {
-					turnLine(30);
+					turnLine(2 * angle);
 				}
 				// Reset time beetwen lines detection
 				startTimeTourplin = System.currentTimeMillis();
+				// Correction
+			} else if (specialOrder.equals("0002")) {
+				int angle2 = angle * 2;
+				correctTheDirection(angle2, time);
+
+				boolean goBack = false;
+				currentTime = System.currentTimeMillis();
+				if ((currentTime - startTimeTourplin) > time) {
+					while (!(ls.getLightValue() > 1100) && !goBack) {
+						Motor.A.backward();
+					}
+				}
+
+				if (lineNotFound) {
+					correctTheDirection2(-angle2, time);
+				}
 				// Tarpoulin
 			} else if (ls.getLightValue() > 600 && ls.getLightValue() < 900) {
 				// Stert time beetwen line detecton
@@ -69,10 +80,11 @@ public class FollowTheLine implements Behavior {
 					startTimeTourplin = System.currentTimeMillis();
 				}
 				if (lastLineDirection > 0) {
-					turnTarpaulin(-15);
+					turnTarpaulin(-angle);
 				} else {
-					turnTarpaulin(15);
+					turnTarpaulin(angle);
 				}
+				// After not finding the line return to the last position
 				boolean goBack = false;
 				currentTime = System.currentTimeMillis();
 				if ((currentTime - startTimeTourplin) > 4000) {
@@ -103,13 +115,12 @@ public class FollowTheLine implements Behavior {
 		lastTarpoulinDirection = Motor.B.getTachoCount();
 	}
 
-	public static void correctTheDirection(int angle) {
+	public static void correctTheDirection(int angle, int time) {
 		// Escape the line
 		Motor.A.forward();
-		Sound.playSample(pw, 25);
 		startTimeLine = System.currentTimeMillis();
 		if (lastLineDirection > 0) {
-			while (!((currentTime = System.currentTimeMillis() - startTimeLine) > 500)
+			while (!((currentTime = System.currentTimeMillis() - startTimeLine) > time)
 					&& !(ls.getLightValue() > 1100)) {
 				Motor.A.forward();
 				turnLine(angle);
@@ -121,8 +132,41 @@ public class FollowTheLine implements Behavior {
 
 		} else {
 			startTimeLine = System.currentTimeMillis();
-			while (!((currentTime = System.currentTimeMillis() - startTimeLine) > 500)
+			while (!((currentTime = System.currentTimeMillis() - startTimeLine) > time)
 					&& !(ls.getLightValue() > 1100)) {
+				Motor.A.forward();
+				turnLine(-angle);
+				lineNotFound = true;
+			}
+			if (ls.getLightValue() > 1100) {
+				lineNotFound = false;
+			}
+		}
+	}
+
+	// Test purposes
+	public static void correctTheDirection2(int angle, int time) {
+		Sound.playSample(pw, 25);
+		// Escape the line
+		Motor.A.forward();
+		startTimeLine = System.currentTimeMillis();
+		if (lastLineDirection > 0) {
+			while (!((currentTime = System.currentTimeMillis() - startTimeLine) > time)
+					&& (ls.getLightValue() > 1100)) {
+				Sound.playSample(pw, 25);
+				Motor.A.forward();
+				turnLine(angle);
+				lineNotFound = true;
+			}
+			if (ls.getLightValue() > 1100) {
+				lineNotFound = false;
+			}
+
+		} else {
+			startTimeLine = System.currentTimeMillis();
+			while (!((currentTime = System.currentTimeMillis() - startTimeLine) > time)
+					&& (ls.getLightValue() > 1100)) {
+				Sound.playSample(pw, 25);
 				Motor.A.forward();
 				turnLine(-angle);
 				lineNotFound = true;
