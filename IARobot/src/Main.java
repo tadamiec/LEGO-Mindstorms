@@ -12,22 +12,23 @@ public class Main {
 		SensorPort SPort2 = SensorPort.S2; // TouchSensor Left
 		SensorPort SPort3 = SensorPort.S3; // LightSensor
 		SensorPort SPort4 = SensorPort.S4; // UltraSonicSensor
-		int d1 = 13;
-		int d2 = 18;
 
+		int d1 = 15;
+		int d2 = 18;
+		int d3 = 22;
 		int Dark = 21;
 		int Light = 70;
 
 		Behavior CF = new CollisionFront(SPort4, SPort1, SPort2); // (UltraS,TSRight,TSLeft)
 		Behavior CL = new CollisionLeft(SPort1, SPort2); // (TSRight,TSLeft)
 		Behavior CR = new CollisionRight(SPort1, SPort2); // (TSRight,TSLeft)
-		Behavior FTW = new FollowTheWall(SPort4, SPort4, d1, d2, Light, Light, Light); // (UltraS,..)
+		//Behavior FTW = new FollowTheWall(SPort4, d1, d2); // (UltraS,..)
 		Behavior SL = new SearchLabyrinthe(SPort3, Dark, Light); // (LightS)
 		Behavior FL = new FollowTheLine(SPort3, Dark, Light);
 		Behavior FB = new FollowTheBridge(SPort3, Dark, Light);
 		// Behavior LSC = new LightSensorCalibration(SPort3); //(LightS)
 
-		Behavior[] BArray = { /*FTW, SL, CR, CL, CF,*/ FB, FL };
+		Behavior[] BArray = { /*FTW, SL, CR, CL, CF,*/ FL, FB};
 
 		Arbitrator Labyrinthe = new Arbitrator(BArray);
 

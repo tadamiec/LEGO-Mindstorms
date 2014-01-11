@@ -1,7 +1,10 @@
+import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
+import lejos.nxt.Sound;
 import lejos.robotics.subsumption.Behavior;
+import java.io.*;
 
 public class FollowTheBridge implements Behavior {
 	private boolean suppressed = false;
@@ -21,28 +24,39 @@ public class FollowTheBridge implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
+		Motor.A.setSpeed(100);
+		Motor.A.forward();
 
-		while (!(ls.getLightValue() > 600 && ls.getLightValue() < 900)
+		while (((ls.getLightValue() > 430 && ls.getLightValue() < 550) || (ls
+				.getLightValue() > 950 && ls.getLightValue() < 1060))
 				&& !suppressed) {
-			// Nothing
-			if (ls.getLightValue() < 550) {
-				Motor.A.forward();
-				Motor.B.rotateTo(10);
-				// Wood
-			} else {
-				Motor.A.forward();
+			// Wood
+			while (ls.getLightValue() > 950) {
+				Motor.A.stop();
 				Motor.B.rotateTo(-10);
+				Motor.A.rotate(180);
+				Motor.B.rotateTo(0);
+				Motor.A.rotate(180);
 			}
+			// Gap
+			Motor.A.stop();
+			Motor.B.rotateTo(10);
+			Motor.A.forward();
+
 			Thread.yield();
 		}
 		suppress();
+
 		Motor.A.stop();
 		Motor.B.rotateTo(0);
+		LCD.clear();
+		LCD.drawString("OUT", 0, 0);
+		File pw = new File("power_up_8bit.wav");
+		Sound.playSample(pw, 0);
 	}
 
 	@Override
 	public void suppress() {
 		suppressed = true;
 	}
-
 }
