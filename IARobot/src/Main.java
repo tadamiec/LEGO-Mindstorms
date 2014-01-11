@@ -30,11 +30,18 @@ public class Main {
 //		Behavior StL = new StartLabyrinth(SPort3, Dark, Light); //(LightS,..)
 //		Behavior TT = new TurnTable(SPort1,SPort2); //(TSRight,TSLeft)
 		
+<<<<<<< HEAD
 //		Behavior [] BArray = { FTW, StL, CR, CL, CF };
 		
 //		Behavior [] BArray = {TT};
 
 		Behavior[] BArray = { FB};
+=======
+		
+//		Behavior [] BArray = {TT};
+
+		Behavior[] BArray = { /*FTW, SL, CR, CL, CF,*/ FL/*, FB*/};
+>>>>>>> cf835723f2a58dbce07d74070462ea33e6174d3b
 
 		Arbitrator Labyrinthe = new Arbitrator(BArray);
 
