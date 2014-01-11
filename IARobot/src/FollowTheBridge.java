@@ -42,15 +42,29 @@ public class FollowTheBridge implements Behavior {
 			}
 			if (!gapFound){
 				Sound.playSample(pw, 25);
+				Motor.A.stop();
 				Motor.B.rotateTo(30);
+				Motor.A.rotate(90);
+				Motor.B.rotateTo(0);
+				Motor.A.forward();
 			}
 			gapFound = true;
 			Motor.A.forward();
-			if (ls.getLightValue() < 600) {
-				Motor.B.rotate(5);
-			} else {
-				Motor.B.rotate(-5);
-			}
+			if (ls.getLightValue() < 600) 
+				Motor.B.rotateTo(15);
+			else
+				Motor.B.rotateTo(-10);
+//			if (ls.getLightValue() < 600) {
+//				if (Motor.B.getTachoCount()==-10)
+//					Motor.B.rotateTo(0);
+//				if (Motor.B.getTachoCount()<15)
+//					Motor.B.rotate(2);
+//			} else {
+//				if (Motor.B.getTachoCount()==15)
+//					Motor.B.rotateTo(0);
+//				if (Motor.B.getTachoCount()>-10)
+//				 Motor.B.rotate(-2);
+//			}
 			Thread.yield();
 			LCD.drawInt(ls.getLightValue(), 0, 0);
 		}
