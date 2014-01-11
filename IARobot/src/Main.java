@@ -18,23 +18,23 @@ public class Main {
 		int d3 = 22;
 		int Dark = 21;
 		int Light = 70;
-
-		Behavior CF = new CollisionFront(SPort4, SPort1, SPort2); // (UltraS,TSRight,TSLeft)
-		Behavior CL = new CollisionLeft(SPort1, SPort2); // (TSRight,TSLeft)
-		Behavior CR = new CollisionRight(SPort1, SPort2); // (TSRight,TSLeft)
-		Behavior FTW = new FollowTheWall(SPort4,SPort3, d1, d2, d3,Dark,Light); // (UltraS,LightS,..)
+//
+//		Behavior CF = new CollisionFront(SPort4, SPort1, SPort2); // (UltraS,TSRight,TSLeft)
+//		Behavior CL = new CollisionLeft(SPort1, SPort2); // (TSRight,TSLeft)
+//		Behavior CR = new CollisionRight(SPort1, SPort2); // (TSRight,TSLeft)
+//		Behavior FTW = new FollowTheWall(SPort4,SPort3, d1, d2, d3,Dark,Light); // (UltraS,LightS,..)
 //		Behavior SL = new SearchLabyrinthe(SPort3, Dark, Light); // (LightS,..)
 //		Behavior FL = new FollowTheLine(SPort3, Dark, Light);
-//		Behavior FB = new FollowTheBridge(SPort3, Dark, Light);
+		Behavior FB = new FollowTheBridge(SPort3, Dark, Light);
 		// Behavior LSC = new LightSensorCalibration(SPort3); //(LightS)
-		Behavior StL = new StartLabyrinth(SPort3, Dark, Light); //(LightS,..)
-		Behavior TT = new TurnTable(SPort1,SPort2); //(TSRight,TSLeft)
+//		Behavior StL = new StartLabyrinth(SPort3, Dark, Light); //(LightS,..)
+//		Behavior TT = new TurnTable(SPort1,SPort2); //(TSRight,TSLeft)
 		
-		Behavior [] BArray = { FTW, StL, CR, CL, CF };
+//		Behavior [] BArray = { FTW, StL, CR, CL, CF };
 		
 //		Behavior [] BArray = {TT};
 
-//		Behavior[] BArray = { FB, FL };
+		Behavior[] BArray = { FB};
 
 		Arbitrator Labyrinthe = new Arbitrator(BArray);
 
