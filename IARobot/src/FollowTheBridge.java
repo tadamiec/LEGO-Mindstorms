@@ -54,17 +54,6 @@ public class FollowTheBridge implements Behavior {
 				Motor.B.rotateTo(15);
 			else
 				Motor.B.rotateTo(-10);
-//			if (ls.getLightValue() < 600) {
-//				if (Motor.B.getTachoCount()==-10)
-//					Motor.B.rotateTo(0);
-//				if (Motor.B.getTachoCount()<15)
-//					Motor.B.rotate(2);
-//			} else {
-//				if (Motor.B.getTachoCount()==15)
-//					Motor.B.rotateTo(0);
-//				if (Motor.B.getTachoCount()>-10)
-//				 Motor.B.rotate(-2);
-//			}
 			Thread.yield();
 			LCD.drawInt(ls.getLightValue(), 0, 0);
 		}
