@@ -9,6 +9,7 @@ public class TurnTable implements Behavior {
 	private boolean suppressed = false;
 	private TouchSensor TSleft;
 	private TouchSensor TSright;
+	private int Symbol = 0;
 	
 	public TurnTable(SensorPort SP1,SensorPort SP2){
 		turntableControl = new TurnControl();
@@ -24,6 +25,9 @@ public class TurnTable implements Behavior {
 	@Override
 	public void action() {
 	
+		
+		turntableControl.sendCommand(Symbol);
+		
 		turntableControl.turnClockwise(180);
 		Motor.B.rotateTo(0);
 		Motor.A.forward();
