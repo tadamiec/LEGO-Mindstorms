@@ -1,3 +1,4 @@
+import lejos.nxt.Button;
 import lejos.robotics.subsumption.Behavior;
 import lejos.util.Delay;
 
@@ -13,14 +14,22 @@ public class DiffPilotMotorTest implements Behavior {
 	public void action() {
 		suppressed = false;
 
-		while (!suppressed) {
-			Main.pilot.setTravelSpeed(30); // cm per second
-			Main.pilot.travel(50); // cm
+		while (!Button.ESCAPE.isDown() && !suppressed) {
+			Main.pilot.setTravelSpeed(100); // cm per second
+			Main.pilot.forward(); // cm
 			Main.pilot.rotate(-90); // degree clockwise
-			Main.pilot.steer(100); // turns with left wheel stationary
+			Main.pilot.forward(); // cm
+
+//			Main.pilot.steer(100); // turns with left wheel stationary
 			Delay.msDelay(1000);
-			Main.pilot.stop();
+			Main.pilot.rotate(90); // degree clockwise
+			Main.pilot.forward(); // cm
+
+
+			//Main.pilot.stop();
+			Thread.yield();
 		}
+		suppress();
 	}
 
 	@Override
