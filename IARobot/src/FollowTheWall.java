@@ -64,7 +64,11 @@ public class FollowTheWall implements Behavior {
 		}
 		File pw = new File("power_up_8bit.wav");
 		Sound.playSample(pw, 0);
+<<<<<<< HEAD
 		//labSolved = true;
+=======
+//		labSolved = true;
+>>>>>>> 080f64d5437970ce446c18c6e86086f7a4d873ea
 		suppress();
 		LCD.clear();
 		LCD.drawString("Ich mach nix", 0, 0);
