@@ -1,4 +1,5 @@
 import lejos.nxt.*;
+import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.*;
 
 
@@ -7,7 +8,8 @@ public class CollisionRight implements Behavior{
 
 	private TouchSensor TSleft;
 	private TouchSensor TSright;
-
+	private DifferentialPilot Pilot;
+	
 	public CollisionRight(SensorPort SP1, SensorPort SP2){
 		TSleft = new TouchSensor(SP2);
 		TSright = new TouchSensor(SP1);
