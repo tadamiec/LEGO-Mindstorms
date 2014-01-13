@@ -26,6 +26,7 @@ public class FollowTheLine2 implements Behavior {
 
 		while (!suppressed) {
 			if (ls.getLightValue() > 1100) {
+				Main.pilot 
 
 			} else {
 

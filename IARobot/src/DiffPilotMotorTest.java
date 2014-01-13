@@ -16,7 +16,7 @@ public class DiffPilotMotorTest implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-
+		
 		while (!suppressed) {
 			pilot.setTravelSpeed(30); // cm per second
 			pilot.travel(50); // cm
