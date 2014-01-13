@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import javax.bluetooth.RemoteDevice;
 
-import lejos.nxt.Sound;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
 
@@ -73,7 +72,7 @@ public class TurnControl {
 		return sendCommand(angle);
 	}
 	
-	private boolean sendCommand(int command) {
+	public boolean sendCommand(int command) {
 		try {
 			outputStream.writeInt(command);
 			outputStream.flush();
