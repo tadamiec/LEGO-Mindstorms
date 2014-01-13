@@ -1,4 +1,5 @@
 import lejos.nxt.*;
+import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.*;
 
 public class Main {
@@ -10,18 +11,17 @@ public class Main {
 
 		SensorPort SPort1 = SensorPort.S1; // TouchSensor Right
 		SensorPort SPort2 = SensorPort.S2; // TouchSensor Left
-//		SensorPort SPort3 = SensorPort.S3; // LightSensor
-//		SensorPort SPort4 = SensorPort.S4; // UltraSonicSensor
-//
+		SensorPort SPort3 = SensorPort.S3; // LightSensor
+		SensorPort SPort4 = SensorPort.S4; // UltraSonicSensor
 //		int d1 = 15;
 //		int d2 = 18;
 //		int d3 = 22;
 //		int Dark = 21;
 //		int Light = 70;
 //
-//		Behavior CF = new CollisionFront(SPort4, SPort1, SPort2); // (UltraS,TSRight,TSLeft)
-//		Behavior CL = new CollisionLeft(SPort1, SPort2); // (TSRight,TSLeft)
-//		Behavior CR = new CollisionRight(SPort1, SPort2); // (TSRight,TSLeft)
+		Behavior CF = new CollisionFront(SPort4, SPort1, SPort2); // (UltraS,TSRight,TSLeft)
+		Behavior CL = new CollisionLeft(SPort1, SPort2); // (TSRight,TSLeft)
+		Behavior CR = new CollisionRight(SPort1, SPort2); // (TSRight,TSLeft)
 //		Behavior FTW = new FollowTheWall(SPort4,SPort3, d1, d2, d3,Dark,Light); // (UltraS,LightS,..)
 //		Behavior SL = new SearchLabyrinthe(SPort3, Dark, Light); // (LightS,..)
 //		Behavior FL = new FollowTheLine(SPort3, Dark, Light);
@@ -30,9 +30,10 @@ public class Main {
 //		Behavior StL = new StartLabyrinth(SPort3, Dark, Light); //(LightS,..)
 		Behavior TT = new TurnTable(SPort1,SPort2); //(TSRight,TSLeft)
 		Behavior IB = new InitBluetooth();
+		Behavior S = new Schneller();
 //		Behavior [] BArray = { FTW, StL, CR, CL, CF };
 		
-		Behavior [] BArray = {IB,TT};
+		Behavior [] BArray = {S,CL,CR,CF};
 
 //		Behavior[] BArray = { FB};
 		
