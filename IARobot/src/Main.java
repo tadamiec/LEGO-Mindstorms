@@ -24,13 +24,12 @@ public class Main {
 		int Light = 70;
 
 		Behavior CF = new CollisionFront(SPort4, SPort1, SPort2); // (UltraS,TSRight,TSLeft)
-		// Behavior CL = new CollisionLeft(SPort1, SPort2); // (TSRight,TSLeft)
-		// Behavior CR = new CollisionRight(SPort1, SPort2); // (TSRight,TSLeft)
-		// Behavior FTW = new FollowTheWall(SPort4,SPort3, d1, d2,
-		// d3,Dark,Light); // (UltraS,LightS,..)
+		 Behavior CL = new CollisionLeft(SPort1, SPort2); // (TSRight,TSLeft)
+		 Behavior CR = new CollisionRight(SPort1, SPort2); // (TSRight,TSLeft)
+		 Behavior FTW = new FollowTheWall(SPort4,SPort3, d1, d2, d3,Dark,Light); // (UltraS,LightS,..)
 		// Behavior SL = new SearchLabyrinthe(SPort3, Dark, Light); //
 		// (LightS,..)
-		// Behavior FL = new FollowTheLine(SPort3, Dark, Light);
+		Behavior FL = new FollowTheLine(SPort3, Dark, Light);
 		// Behavior FB = new FollowTheBridge(SPort3, Dark, Light);
 		// Behavior LSC = new LightSensorCalibration(SPort3); //(LightS)
 		// Behavior StL = new StartLabyrinth(SPort3, Dark, Light); //(LightS,..)
@@ -38,7 +37,7 @@ public class Main {
 		// Behavior IB = new InitBluetooth();
 		Behavior OD = new OpenADoor();
 
-		Behavior[] BArray = { OD, CF };
+		Behavior[] BArray = { /*FTW, CL, CR, CF*/ FL};
 
 		Arbitrator Labyrinthe = new Arbitrator(BArray);
 
