@@ -47,13 +47,8 @@ public class FollowTheWall implements Behavior {
 				&& !suppressed) {
 			Main.pilot.forward();
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
 
->>>>>>> 76b483a70ba482011d1e8e6de7a02861024d3751
->>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
+
 			if(us.getDistance() > 40){
 				Main.pilot.travel(100);
 				Main.pilot.rotate(-90);
@@ -62,13 +57,7 @@ public class FollowTheWall implements Behavior {
 				}
 				Main.pilot.travel(50);
 			}
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
 
->>>>>>> 76b483a70ba482011d1e8e6de7a02861024d3751
->>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 
 			
 			Thread.yield();
