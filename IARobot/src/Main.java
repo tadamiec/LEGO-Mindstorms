@@ -28,7 +28,7 @@ public class Main {
 //		Behavior SL = new SearchLabyrinthe(SPort3, Dark, Light); // (LightS,..)
 //		Behavior FL = new FollowTheLine(SPort3, Dark, Light);
 //		Behavior FB = new FollowTheBridge(SPort3, Dark, Light);
-//		 Behavior LSC = new LightSensorCalibration(SPort3); //(LightS)
+//		Behavior LSC = new LightSensorCalibration(SPort3); //(LightS)
 //		Behavior StL = new StartLabyrinth(SPort3, Dark, Light); //(LightS,..)
 //		Behavior TT = new TurnTable(SPort1,SPort2); //(TSRight,TSLeft)
 //		Behavior IB = new InitBluetooth();

@@ -36,9 +36,6 @@ public class OpenADoor implements Behavior {
 		Main.door = true;
 
 		if (Main.doorBumped) {
-//			System.out.println("Press Enter to connect to Gate!");
-			// Button.ENTER.waitForPress();
-
 			System.out.println("Connecting...");
 			RemoteDevice btrd = Bluetooth.getKnownDevice("Gate1");
 			BTConnection conn = Bluetooth.connect(btrd);
@@ -53,13 +50,11 @@ public class OpenADoor implements Behavior {
 				try {
 					os.writeInt(0);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					os.flush();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				System.out.println("Sent!");
@@ -68,22 +63,17 @@ public class OpenADoor implements Behavior {
 				try {
 					os.writeInt(99);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try {
 					os.flush();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				conn.close();
 				System.out.println("Connection closed.");
 				Motor.A.forward();
 			}
-			// NXTConnection Connex = Bluetooth.waitForConnection();
-			// DataInputStream dis = Connex.openDataInputStream();
-			// DataOutputStream dos = Connex.openDataOutputStream();
 		} else {
 			Motor.A.setSpeed(90);
 			Motor.A.forward();
