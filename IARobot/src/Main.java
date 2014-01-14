@@ -7,7 +7,13 @@ public class Main {
 
 	public static boolean door = false;
 	public static boolean doorBumped = false;
+<<<<<<< HEAD
 	public static DifferentialPilot pilot = new DifferentialPilot(18, 95 , Motor.B, Motor.C);
+=======
+
+	public static DifferentialPilot pilot = new DifferentialPilot(18, 95 , Motor.B, Motor.C);
+
+>>>>>>> 76b483a70ba482011d1e8e6de7a02861024d3751
 
 	/**
 	 * @param args
@@ -35,14 +41,30 @@ public class Main {
 //		Behavior StL = new StartLabyrinth(SPort3, Dark, Light); //(LightS,..)
 //		Behavior TT = new TurnTable(SPort1,SPort2); //(TSRight,TSLeft)
 //		Behavior Test = new DiffPilotMotorTest();
+<<<<<<< HEAD
 		
 //		Behavior [] BArray = {FTW,CL,CR,CF};
 
 		Behavior[] BArray = {FB};
 		
 
+=======
+		Behavior OD = new OpenADoor(); // use bluetooth to open the door
+>>>>>>> 76b483a70ba482011d1e8e6de7a02861024d3751
+
+//		Behavior [] BArray = {FTW,CL,CR,CF};
+
+<<<<<<< HEAD
+=======
+		Behavior [] BArray = {OD,CF};
+
+		// UltrasonicSensor us = new UltrasonicSensor(SPort4);
+		//
+		// while(!Button.ESCAPE.isDown())
+		// System.out.println(us.getDistance());
 
 
+>>>>>>> 76b483a70ba482011d1e8e6de7a02861024d3751
 
 		Arbitrator Labyrinthe = new Arbitrator(BArray);
 
