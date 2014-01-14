@@ -33,14 +33,14 @@ public class Main {
 				Light); // (UltraS,LightS,..)
 		// Behavior SL = new SearchLabyrinthe(SPort3, Dark, Light); //
 		// (LightS,..)
-		Behavior FL = new FollowTheLine2(SPort3, Dark, Light);
+		Behavior FL = new FollowTheLine(SPort3, Dark, Light);
 		// Behavior FB = new FollowTheBridge(SPort3, Dark, Light);
 		 Behavior LSC = new LightSensorCalibration(SPort3); //(LightS)
 		// Behavior StL = new StartLabyrinth(SPort3, Dark, Light); //(LightS,..)
 		Behavior TT = new TurnTable(SPort1, SPort2); // (TSRight,TSLeft)
-		Behavior Test = new DiffPilotMotorTest();
-
-		Behavior[] BArray = {/*LSC*/ FL };
+//		Behavior Test = new DiffPilotMotorTest();
+		Behavior OD = new OpenADoor();
+		Behavior[] BArray = {/*LSC*/ OD };
 
 		// Behavior[] BArray = { FB};
 
