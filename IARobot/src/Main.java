@@ -40,7 +40,7 @@ public class Main {
 		Behavior TT = new TurnTable(SPort1, SPort2); // (TSRight,TSLeft)
 //		Behavior Test = new DiffPilotMotorTest();
 		Behavior OD = new OpenADoor();
-		Behavior[] BArray = {/*LSC*/ OD };
+		Behavior[] BArray = {/*LSC*/ OD ,CF };
 
 		// Behavior[] BArray = { FB};
 

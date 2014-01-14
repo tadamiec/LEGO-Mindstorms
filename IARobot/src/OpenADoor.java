@@ -85,8 +85,10 @@ public class OpenADoor implements Behavior {
 			// DataInputStream dis = Connex.openDataInputStream();
 			// DataOutputStream dos = Connex.openDataOutputStream();
 		} else {
-			Motor.A.setSpeed(90);
-			Motor.A.forward();
+			Motor.B.setSpeed(90);
+			Motor.B.forward();
+			Motor.C.setSpeed(90);
+			Motor.C.forward();
 			Thread.yield();
 		}
 		while (!suppressed) {
