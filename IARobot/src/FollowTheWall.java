@@ -44,46 +44,22 @@ public class FollowTheWall implements Behavior {
 		LCD.clear();
 		LCD.drawString("Ich führe ein Wand", 0, 0);
 
-//		Motor.C.rotateTo(90);
 
-//		Motor.A.forward();
-		
 		while (/*ls.getLightValue() < 1200 &&*/ !Button.ESCAPE.isDown()
 				&& !suppressed) {
 			Main.pilot.forward();
 
-<<<<<<< HEAD
-//			if(us.getDistance() > d2 && us.getDistance() < d3)
-////				Main.pilot.arc(us.getDistance()-d2,-10);
-//				Main.pilot.rotate(-10);
-//			else if(us.getDistance() < d1)
-////				Main.pilot.arc(d1-us.getDistance(),10);
-//				Main.pilot.rotate(10);		
-			if(us.getDistance() > 30){
+			if(us.getDistance() > 40){
 				Main.pilot.travel(100);
 				Main.pilot.rotate(-90);
-			}
-=======
-			if(us.getDistance() > d2)
-				Main.pilot.arc(10,Math.max(2 * (us.getDistance() - d2), 90));
-			else if(us.getDistance() < d1)
-				Main.pilot.arc(10,Math.min(2 * (us.getDistance() - d1), -90));
-//			else if(us.getDistance() > d3){
-//				Main.pilot.arc();
-//			}
->>>>>>> d96543fedccc3fa21c735e66f5f0be64fa2690f7
-			
-//			if ((us.getDistance() < d2 && us.getDistance() > d1)
-//					|| (us.getDistance() < d3 && Motor.B.getTachoCount() >= 30))
-//				Motor.B.rotateTo(0);
-//			else if (us.getDistance() > d3)
-//				Motor.B.rotateTo(Math.min(2 * (us.getDistance() - d3), 30));
-//			else if (us.getDistance() > d2 && us.getDistance() < d3)
-//				Motor.B.rotateTo(Math.min(2 * (us.getDistance() - d2), 10));
-//			else if (us.getDistance() < d1)
-//				Motor.B.rotateTo(Math.max(2 * (us.getDistance() - d1), -10));
-//			Main.pilot.forward();
+				while(us.getDistance() > 40){
+					Main.pilot.forward();
+				}
+				Main.pilot.travel(50);
 
+			}
+
+			
 			Thread.yield();
 		}
 		File pw = new File("power_up_8bit.wav");
