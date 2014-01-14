@@ -27,7 +27,15 @@ public class CollisionLeft implements Behavior {
 		LCD.drawString("Es gibt ein object an meinem Links", 0, 0);
 
 		Main.pilot.rotate(-45);
+<<<<<<< HEAD
 
+=======
+	
+<<<<<<< HEAD
+=======
+
+>>>>>>> 76b483a70ba482011d1e8e6de7a02861024d3751
+>>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 		while(Main.pilot.isMoving() && !suppressed )
 			Thread.yield();
 		suppress();

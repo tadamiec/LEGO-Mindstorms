@@ -1,4 +1,5 @@
 import java.io.DataOutputStream;
+
 import java.io.IOException;
 
 import javax.bluetooth.RemoteDevice;
@@ -17,6 +18,7 @@ import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
 import lejos.robotics.subsumption.Behavior;
+import lejos.util.Delay;
 
 public class OpenADoor implements Behavior {
 	public boolean suppressed = false;
@@ -79,7 +81,7 @@ public class OpenADoor implements Behavior {
 				}
 				conn.close();
 				System.out.println("Connection closed.");
-				Motor.A.forward();
+				Main.pilot.forward();
 			}
 			// NXTConnection Connex = Bluetooth.waitForConnection();
 			// DataInputStream dis = Connex.openDataInputStream();

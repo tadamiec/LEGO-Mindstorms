@@ -29,13 +29,13 @@ public class LevelBarCode implements Behavior{
 		
 		while(!EndBarcode && !suppressed){
 			Main.pilot.forward();
-			if((wasWhite && ls.getLightValue() < 1100)){
+			if((wasWhite && ls.getLightValue() < 1000)){
 				wasWhite = false;
 				wasBlack = true;
 				Time = System.currentTimeMillis();
 
 			}
-			else if(wasBlack && ls.getLightValue() > 1100){
+			else if(wasBlack && ls.getLightValue() > 1000){
 				wasWhite = true;
 				wasBlack = false;
 				Time = System.currentTimeMillis();
