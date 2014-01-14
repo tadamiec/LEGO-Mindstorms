@@ -44,14 +44,22 @@ public class FollowTheWall implements Behavior {
 		LCD.clear();
 		LCD.drawString("Ich führe ein Wand", 0, 0);
 
-//		Motor.C.rotateTo(90);
 
-//		Motor.A.forward();
-		
 		while (/*ls.getLightValue() < 1200 &&*/ !Button.ESCAPE.isDown()
 				&& !suppressed) {
 			Main.pilot.forward();
 
+<<<<<<< HEAD
+			if(us.getDistance() > 40){
+				Main.pilot.travel(100);
+				Main.pilot.rotate(-90);
+				while(us.getDistance() > 40){
+					Main.pilot.forward();
+				}
+				Main.pilot.travel(50);
+
+			}
+=======
 
 			
 //			if ((us.getDistance() < d2 && us.getDistance() > d1)
@@ -64,7 +72,9 @@ public class FollowTheWall implements Behavior {
 //			else if (us.getDistance() < d1)
 //				Motor.B.rotateTo(Math.max(2 * (us.getDistance() - d1), -10));
 //			Main.pilot.forward();
+>>>>>>> 2fbb4f186f4ed65ee8afb3e41c674c147e487945
 
+			
 			Thread.yield();
 		}
 		File pw = new File("power_up_8bit.wav");
