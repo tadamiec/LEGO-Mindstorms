@@ -46,17 +46,21 @@ public class FollowTheWall implements Behavior {
 //		Motor.C.rotateTo(90);
 
 //		Motor.A.forward();
-		Main.pilot.forward();
 		
 		while (/*ls.getLightValue() < 1200 &&*/ !Button.ESCAPE.isDown()
 				&& !suppressed) {
+			Main.pilot.forward();
 
-			if(us.getDistance() > d2 && us.getDistance() < d3)
-				Main.pilot.rotate(10);
-			else if(us.getDistance() < d1)
-				Main.pilot.rotate(-10);
-			else if(us.getDistance() > d3)
-				Main.pilot.rotate(90);
+//			if(us.getDistance() > d2 && us.getDistance() < d3)
+////				Main.pilot.arc(us.getDistance()-d2,-10);
+//				Main.pilot.rotate(-10);
+//			else if(us.getDistance() < d1)
+////				Main.pilot.arc(d1-us.getDistance(),10);
+//				Main.pilot.rotate(10);		
+			if(us.getDistance() > 30){
+				Main.pilot.travel(100);
+				Main.pilot.rotate(-90);
+			}
 			
 //			if ((us.getDistance() < d2 && us.getDistance() > d1)
 //					|| (us.getDistance() < d3 && Motor.B.getTachoCount() >= 30))
@@ -67,6 +71,7 @@ public class FollowTheWall implements Behavior {
 //				Motor.B.rotateTo(Math.min(2 * (us.getDistance() - d2), 10));
 //			else if (us.getDistance() < d1)
 //				Motor.B.rotateTo(Math.max(2 * (us.getDistance() - d1), -10));
+//			Main.pilot.forward();
 
 			Thread.yield();
 		}
