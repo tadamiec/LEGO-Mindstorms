@@ -49,7 +49,6 @@ public class FollowTheWall implements Behavior {
 				&& !suppressed) {
 			Main.pilot.forward();
 
-<<<<<<< HEAD
 			if(us.getDistance() > 40){
 				Main.pilot.travel(100);
 				Main.pilot.rotate(-90);
@@ -59,20 +58,6 @@ public class FollowTheWall implements Behavior {
 				Main.pilot.travel(50);
 
 			}
-=======
-
-			
-//			if ((us.getDistance() < d2 && us.getDistance() > d1)
-//					|| (us.getDistance() < d3 && Motor.B.getTachoCount() >= 30))
-//				Motor.B.rotateTo(0);
-//			else if (us.getDistance() > d3)
-//				Motor.B.rotateTo(Math.min(2 * (us.getDistance() - d3), 30));
-//			else if (us.getDistance() > d2 && us.getDistance() < d3)
-//				Motor.B.rotateTo(Math.min(2 * (us.getDistance() - d2), 10));
-//			else if (us.getDistance() < d1)
-//				Motor.B.rotateTo(Math.max(2 * (us.getDistance() - d1), -10));
-//			Main.pilot.forward();
->>>>>>> 2fbb4f186f4ed65ee8afb3e41c674c147e487945
 
 			
 			Thread.yield();

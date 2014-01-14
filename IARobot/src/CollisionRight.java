@@ -25,13 +25,9 @@ public class CollisionRight implements Behavior{
 	public void action() {
 		LCD.clear();
 		LCD.drawString("Es gibt ein object an meinem Recht", 0, 0);
-<<<<<<< HEAD
 		Main.pilot.rotate(45);
 
 		while(Main.pilot.isMoving() && !suppressed )
-=======
-
->>>>>>> 2fbb4f186f4ed65ee8afb3e41c674c147e487945
 			Thread.yield();
 		suppress();
 
