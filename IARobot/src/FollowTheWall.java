@@ -7,6 +7,7 @@ import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
 import lejos.nxt.UltrasonicSensor;
+import lejos.nxt.addon.AngleSensor;
 import lejos.robotics.subsumption.Behavior;
 
 public class FollowTheWall implements Behavior {
@@ -46,17 +47,18 @@ public class FollowTheWall implements Behavior {
 //		Motor.C.rotateTo(90);
 
 //		Motor.A.forward();
-		Main.pilot.forward();
 		
 		while (/*ls.getLightValue() < 1200 &&*/ !Button.ESCAPE.isDown()
 				&& !suppressed) {
+			Main.pilot.forward();
 
-			if(us.getDistance() > d2 && us.getDistance() < d3)
-				Main.pilot.rotate(10);
+			if(us.getDistance() > d2)
+				Main.pilot.arc(10,Math.max(2 * (us.getDistance() - d2), 90));
 			else if(us.getDistance() < d1)
-				Main.pilot.rotate(-10);
-			else if(us.getDistance() > d3)
-				Main.pilot.rotate(90);
+				Main.pilot.arc(10,Math.min(2 * (us.getDistance() - d1), -90));
+//			else if(us.getDistance() > d3){
+//				Main.pilot.arc();
+//			}
 			
 //			if ((us.getDistance() < d2 && us.getDistance() > d1)
 //					|| (us.getDistance() < d3 && Motor.B.getTachoCount() >= 30))
