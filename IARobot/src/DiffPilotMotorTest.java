@@ -13,18 +13,22 @@ public class DiffPilotMotorTest implements Behavior {
 	@Override
 	public void action() {
 		suppressed = false;
-
+		Main.pilot.rotate(720,true);
 		while (!Button.ESCAPE.isDown() && !suppressed) {
-			Main.pilot.setTravelSpeed(100); // cm per second
-			Main.pilot.forward(); // cm
-			Main.pilot.rotate(-90); // degree clockwise
+//			Main.pilot.setTravelSpeed(100); // cm per second
+//			Main.pilot.forward(); // cm
+			
+			
+			
+			/*Main.pilot.rotate(-90); // degree clockwise
 			Main.pilot.forward(); // cm
 
 //			Main.pilot.steer(100); // turns with left wheel stationary
 			Delay.msDelay(1000);
 			Main.pilot.rotate(90); // degree clockwise
-			Main.pilot.forward(); // cm
-
+			Main.pilot.forward(); // cm*/
+			
+			
 
 			//Main.pilot.stop();
 			Thread.yield();

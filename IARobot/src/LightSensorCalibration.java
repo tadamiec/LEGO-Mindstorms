@@ -7,7 +7,7 @@ import lejos.robotics.subsumption.Behavior;
 
 public class LightSensorCalibration implements Behavior{
 	private boolean suppress = false;
-	private boolean calibration = false;
+	private boolean calibration = true;
 	private LightSensor ls;
 	
 
@@ -17,7 +17,7 @@ public class LightSensorCalibration implements Behavior{
 	}
 	
 	public boolean takeControl() {
-		return Button.RIGHT.isDown() || calibration;
+		return calibration;
 	}
 
 	public void action() {
