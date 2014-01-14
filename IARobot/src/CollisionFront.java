@@ -2,13 +2,11 @@ import lejos.nxt.*;
 import lejos.robotics.subsumption.*;
 
 public class CollisionFront implements Behavior {
-	private UltrasonicSensor us;
 	private TouchSensor TSright;
 	private TouchSensor TSleft;
 	private boolean suppressed = false;
 
-	public CollisionFront(SensorPort US, SensorPort SP1, SensorPort SP2) {
-		us = new UltrasonicSensor(US);
+	public CollisionFront( SensorPort SP1, SensorPort SP2) {
 		TSleft = new TouchSensor(SP2);
 		TSright = new TouchSensor(SP1);
 	}
@@ -58,7 +56,7 @@ public class CollisionFront implements Behavior {
 //				Motor.A.rotate(-540);
 		}
 
-		while (Motor.A.isMoving() && !suppressed)
+		while (Main.pilot.isMoving() && !suppressed)
 			Thread.yield();
 
 		// Clean up
