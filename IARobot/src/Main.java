@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 import lejos.nxt.*;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.*;
@@ -9,6 +12,8 @@ public class Main {
 	public static boolean doorBumped = false;
 	public static DifferentialPilot pilot = new DifferentialPilot(32, 120,
 			Motor.B, Motor.C);
+	
+	public static List<SymbolTravelData> symbolTravelDataList = new ArrayList<SymbolTravelData>();
 
 	/**
 	 * @param args
@@ -39,8 +44,9 @@ public class Main {
 		// Behavior StL = new StartLabyrinth(SPort3, Dark, Light); //(LightS,..)
 		Behavior TT = new TurnTable(SPort1, SPort2); // (TSRight,TSLeft)
 		Behavior Test = new DiffPilotMotorTest();
+		Behavior SR = new SymbolsReader(SPort3, Dark, Light);
 
-		Behavior[] BArray = {/*LSC*/ FL };
+		Behavior[] BArray = {/*LSC*/ SR};
 
 		// Behavior[] BArray = { FB};
 
