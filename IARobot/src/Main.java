@@ -14,8 +14,13 @@ public class Main {
 //	public static List<SymbolTravelData> symbolTravelDataList = new ArrayList<SymbolTravelData>();
 
 	public static DifferentialPilot pilot = new DifferentialPilot(18, 95 , Motor.B, Motor.C);
-
-
+	public enum Level{
+		START{0},
+		BRIDGE{1},
+		SYMBOL{2},
+		SHOOT{4},
+		BOSS{5},	
+	};
 
 	/**
 	 * @param args

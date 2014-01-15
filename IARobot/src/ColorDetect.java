@@ -34,10 +34,12 @@ public class ColorDetect implements Behavior {
 		suppressed = false;
 		int tmp = 0;
 		Main.pilot.travel(100);
-		while (!(lts.isPressed() || rts.isPressed()) && !suppressed){
+		while (!suppressed){
 			//CENTERING
 			while(ls.getLightValue()<1000){
+				//
 				Main.pilot.rotate(30);
+				//
 				Main.pilot.rotate(-30);
 			}
 			Main.pilot.travel(100);
