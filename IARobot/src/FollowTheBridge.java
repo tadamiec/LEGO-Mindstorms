@@ -4,6 +4,8 @@ import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
 import lejos.robotics.subsumption.Behavior;
+import lejos.util.Delay;
+
 import java.io.*;
 
 public class FollowTheBridge implements Behavior {
@@ -27,12 +29,12 @@ public class FollowTheBridge implements Behavior {
 
 	@Override
 	public void action() {
+		LCD.clear();
+		LCD.drawString("Mode : FollowTheBridge", 0, 0);
 		suppressed = false;
 		File pw = new File("power_up_8bit.wav");
 
-		Main.pilot.travel(100);
-
-		while (ls.getLightValue() < 1200 && !suppressed) {
+		while (!suppressed) {
 
 			// while (ls.getLightValue() > 600 && !gapFound)
 			// Main.pilot.forward();
@@ -47,31 +49,46 @@ public class FollowTheBridge implements Behavior {
 			// START
 
 			int i = 0;
-			while (ls.getLightValue() > 600 && i < 5) {
+			while (ls.getLightValue() > 1000 && i < 5) {
 				Main.pilot.rotate(step);
 				i++;
-				// adjustmentNeeded = true;
 			}
-			if (ls.getLightValue() > 600) {
-				// adjustmentNeeded = false;
-				while (ls.getLightValue() > 600) {
+			if (ls.getLightValue() > 1000) {
+				while (ls.getLightValue() > 1000) {
 					Main.pilot.forward();
 				}
-				Main.pilot.travel(-10);
+				Main.pilot.travel(-30);
+				Main.pilot.rotate(-(i + 1) * step);
+			} else {
+				Main.pilot.travel(-30);
 				Main.pilot.rotate(-(i + 1) * step);
 			}
+			Main.pilot.travel(150);
 
-			gapFound = true;
-			Motor.A.forward();
-			if (ls.getLightValue() < 600) 
-				Motor.B.rotateTo(15);
-			else
-				Motor.B.rotateTo(-10);
+			int l1 = ls.getLightValue();
+			Delay.msDelay(100);
+			int l2 = ls.getLightValue();
+			Delay.msDelay(100);
+			int l3 = ls.getLightValue();
+			Delay.msDelay(100);
+			int l4 = ls.getLightValue();
+			Delay.msDelay(100);
+			int l5 = ls.getLightValue();
+			Delay.msDelay(100);
+			int l6 = ls.getLightValue();
+			Delay.msDelay(100);
+			int l7 = ls.getLightValue();
+			Delay.msDelay(100);
+			int l8 = ls.getLightValue();
 
-//			if (adjustmentNeeded) {
-//				Main.pilot.rotate(-4 * step);
-//				adjustmentNeeded = false;
-//			}<
+			int[] l = { l1, l2, l3, l4, l5, l6, l7, l8 };
+
+			for (int j = 0; j < 7; j++) {
+				if ((l[j] - l[j + 1] > 100 || l[j + 1] - l[j] > 100)) {
+					Main.colorChanged = true;
+				}
+
+			}
 
 			Thread.yield();
 
@@ -82,8 +99,7 @@ public class FollowTheBridge implements Behavior {
 
 		suppress();
 
-		LCD.drawString("OUT", 0, 0);
-		LCD.drawInt(ls.getLightValue(), 1, 1);
+		LCD.drawString("OUT OF FB", 0, 0);
 	}
 
 	@Override

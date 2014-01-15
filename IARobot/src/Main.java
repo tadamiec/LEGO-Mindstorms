@@ -1,22 +1,21 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import lejos.nxt.Button;
-import lejos.nxt.LCD;
-import lejos.nxt.Motor;
-import lejos.nxt.SensorPort;
+import lejos.nxt.*;
 import lejos.robotics.navigation.DifferentialPilot;
-import lejos.robotics.subsumption.Arbitrator;
-import lejos.robotics.subsumption.Behavior;
+import lejos.robotics.subsumption.*;
 
 public class Main {
+<<<<<<< HEAD
 
 	public static String level = "Start";
+=======
+	public static int level = 42;
+>>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 
 	public static boolean door = false;
 	public static boolean doorBumped = false;
+<<<<<<< HEAD
 
 	public static List<SymbolTravelData> symbolTravelDataList = new ArrayList<SymbolTravelData>();
 
@@ -25,8 +24,18 @@ public class Main {
 
 	@SuppressWarnings("deprecation")
 	public static Map<Integer, String> levelList = new HashMap<Integer, String>();
+=======
+	public static boolean colorChanged = false;
+	
+//	public static List<SymbolTravelData> symbolTravelDataList = new ArrayList<SymbolTravelData>();
+>>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 
+<<<<<<< HEAD
 	// new HashMap<String, Integer>();
+=======
+	public static DifferentialPilot pilot = new DifferentialPilot(18, 95 , Motor.B, Motor.C);
+
+>>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 
 	/**
 	 * @param args
@@ -38,6 +47,7 @@ public class Main {
 		SensorPort SPort3 = SensorPort.S3; // LightSensor
 		SensorPort SPort4 = SensorPort.S4; // UltraSonicSensor
 
+<<<<<<< HEAD
 		int Dark = 27;
 		int Light = 58;
 
@@ -47,12 +57,42 @@ public class Main {
 		levelList.put(3, "Symbol");
 		levelList.put(4, "Shoot");
 		levelList.put(5, "Boss");
+=======
+
+
+		int Dark = 27;
+		int Light = 58;
+//
+		Behavior CF = new CollisionFront( SPort1, SPort2); // (TSRight,TSLeft)
+//		Behavior CL = new CollisionLeft(SPort1, SPort2); // (TSRight,TSLeft)
+//		Behavior CR = new CollisionRight(SPort1, SPort2); // (TSRight,TSLeft)
+
+
+//		Behavior FTW = new FollowTheWall(SPort4,SPort3, d1, d2, 30,Dark,Light); // (UltraS,LightS,..)
+//		Behavior SL = new SearchLabyrinthe(SPort3, Dark, Light); // (LightS,..)
+//		Behavior FL = new FollowTheLine(SPort3, Dark, Light);
+
+		Behavior FB = new FollowTheBridge(SPort3, Dark, Light);
+//      Behavior LSC = new LightSensorCalibration(SPort3); //(LightS)
+//		Behavior StL = new StartLabyrinth(SPort3, Dark, Light); //(LightS,..)
+//		Behavior TT = new TurnTable(SPort1,SPort2); //(TSRight,TSLeft)
+//		Behavior Test = new DiffPilotMotorTest();
+
+
+//		Behavior OD = new OpenADoor(); // use bluetooth to open the door
+
+		Behavior CD = new ColorDetect(SPort3,SPort4, Dark, Light,SPort1, SPort2); // use bluetooth to open the door
+		Behavior [] BArray = {FB, CD, CF};
+
+
+>>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 
 		// UltrasonicSensor us = new UltrasonicSensor(SPort4);
 		//
 		// while(!Button.ESCAPE.isDown())
 		// System.out.println(us.getDistance());
 
+<<<<<<< HEAD
 		// Behavior CF = new CollisionFront(SPort4, SPort1, SPort2); //
 		// (UltraS,TSRight,TSLeft)
 		// Behavior CL = new CollisionLeft(SPort1, SPort2); // (TSRight,TSLeft)
@@ -69,6 +109,9 @@ public class Main {
 		Behavior SR = new SymbolsReader2(SPort3, Dark, Light);
 
 		Behavior[] BArray = { SR };
+=======
+
+>>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 
 		Arbitrator Rennen = new Arbitrator(BArray);
 
@@ -79,4 +122,5 @@ public class Main {
 		Rennen.start();
 
 	}
+
 }

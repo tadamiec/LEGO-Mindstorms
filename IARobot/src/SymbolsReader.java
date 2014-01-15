@@ -131,6 +131,7 @@ public class SymbolsReader implements Behavior {
 				limitAngle += angle;
 			}
 
+<<<<<<< HEAD
 			// if (!minus && (limitAngle > (3 * angle))) {
 			// currentTime = System.currentTimeMillis();
 			// symbolTravelData.setAngle(limitAngle);
@@ -146,6 +147,23 @@ public class SymbolsReader implements Behavior {
 			// System.out.println(-limitAngle);
 			// System.out.println(currentTime - startTime);
 			// }
+=======
+			if (!minus && (limitAngle > (3 * angle))) {
+				currentTime = System.currentTimeMillis();
+				symbolTravelData.setAngle(limitAngle);
+				symbolTravelData.setTime(currentTime - startTime);
+//				Main.symbolTravelDataList.add(symbolTravelData);
+				System.out.println(limitAngle);
+				System.out.println(currentTime - startTime);
+			} else if (minus && (limitAngle > (3 * angle))) {
+				currentTime = System.currentTimeMillis();
+				symbolTravelData.setAngle(limitAngle);
+				symbolTravelData.setTime(currentTime - startTime);
+//				Main.symbolTravelDataList.add(symbolTravelData);
+				System.out.println(-limitAngle);
+				System.out.println(currentTime - startTime);
+			}
+>>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 
 			limitAngle = angle;
 		}

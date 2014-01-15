@@ -1,5 +1,6 @@
 import lejos.nxt.*;
 import lejos.robotics.subsumption.*;
+import lejos.util.Delay;
 
 public class ColorDetect implements Behavior {
 	private boolean suppressed = false;
@@ -22,8 +23,13 @@ public class ColorDetect implements Behavior {
 	}
 
 	public boolean takeControl() {
+<<<<<<< HEAD
 
 		return (ls.getLightValue() > 950);
+=======
+		
+		return (Main.colorChanged || ls.getLightValue() >= 1650); //kritik
+>>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 	}
 
 	public void suppress() {
@@ -37,6 +43,7 @@ public class ColorDetect implements Behavior {
 		suppressed = false;
 		int tmp = 0;
 
+<<<<<<< HEAD
 		Main.pilot.travel(100); // Problem?
 		while (!suppressed) {
 
@@ -47,6 +54,10 @@ public class ColorDetect implements Behavior {
 			}
 			Main.pilot.travel(100);
 			// END CENTERING
+=======
+		Main.pilot.travel(50); // Problem?
+		while (!suppressed){
+>>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 
 			// ANGLE CORRECTION
 			while (us.getDistance() > 100 & tmp == 0) {
@@ -59,21 +70,57 @@ public class ColorDetect implements Behavior {
 			tmp = 1;
 			// END ANGLE CORRECTION
 
+<<<<<<< HEAD
 			// FORWARD TO ELEVATOR
 			while (ls.getLightValue() > 600) {
+=======
+			//FORWARD TO ELEVATOR
+			while(ls.getLightValue()>1000){
+>>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 				Main.pilot.forward();
 			}
 
 			// WAIT FOR ELEVATOR
 			LCD.clear();
+<<<<<<< HEAD
 			LCD.drawString("Ich warte für den aufzug", 0, 0);
 			while (ls.getLightValue() < 800) {
+=======
+			LCD.drawString("Ich warte fur den aufzug", 0, 0);
+			while (ls.getLightValue() < 1450){
+>>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 				Main.pilot.stop();
 			}
 
+<<<<<<< HEAD
 			Thread.yield();
 		}
 
+=======
+			//GO INSIDE ELEVATOR
+			LCD.clear();
+			LCD.drawString("Go go go!", 0, 0);
+			Main.pilot.travel(120);
+			Delay.msDelay(13000);
+			Main.pilot.travel(300);
+			Thread.yield();
+			}
+			
+		}
+		
+		
+		
+
+
+
+//		while (Main.pilot.isMoving() && !suppressed)
+//			Thread.yield();
+//
+//		// Clean up
+//		suppress();
+////		Motor.B.rotateTo(0);
+////		Motor.A.stop(
+>>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 	}
 
 	// while (Main.pilot.isMoving() && !suppressed)
