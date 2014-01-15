@@ -19,15 +19,13 @@ public class FollowTheWall implements Behavior {
 	private int d2;
 	private int d3;
 
-	public FollowTheWall(SensorPort US, SensorPort LS, int i, int j, int k,
+	public FollowTheWall(SensorPort US, SensorPort LS,
 			int Dark, int Light) {
 		us = new UltrasonicSensor(US);
 		ls = new LightSensor(LS);
 		ls.setHigh(Light);
 		ls.setLow(Dark);
-		d1 = i;
-		d2 = j;
-		d3 = k;
+	
 	}
 
 	public boolean takeControl() {
@@ -44,46 +42,24 @@ public class FollowTheWall implements Behavior {
 		LCD.clear();
 		LCD.drawString("Ich führe ein Wand", 0, 0);
 
-//		Motor.C.rotateTo(90);
 
-//		Motor.A.forward();
-		
 		while (/*ls.getLightValue() < 1200 &&*/ !Button.ESCAPE.isDown()
 				&& !suppressed) {
 			Main.pilot.forward();
 
-<<<<<<< HEAD
-//			if(us.getDistance() > d2 && us.getDistance() < d3)
-////				Main.pilot.arc(us.getDistance()-d2,-10);
-//				Main.pilot.rotate(-10);
-//			else if(us.getDistance() < d1)
-////				Main.pilot.arc(d1-us.getDistance(),10);
-//				Main.pilot.rotate(10);		
-			if(us.getDistance() > 30){
+
+
+			if(us.getDistance() > 40){
 				Main.pilot.travel(100);
 				Main.pilot.rotate(-90);
+				while(us.getDistance() > 40){
+					Main.pilot.forward();
+				}
+				Main.pilot.travel(50);
 			}
-=======
-			if(us.getDistance() > d2)
-				Main.pilot.arc(10,Math.max(2 * (us.getDistance() - d2), 90));
-			else if(us.getDistance() < d1)
-				Main.pilot.arc(10,Math.min(2 * (us.getDistance() - d1), -90));
-//			else if(us.getDistance() > d3){
-//				Main.pilot.arc();
-//			}
->>>>>>> d96543fedccc3fa21c735e66f5f0be64fa2690f7
-			
-//			if ((us.getDistance() < d2 && us.getDistance() > d1)
-//					|| (us.getDistance() < d3 && Motor.B.getTachoCount() >= 30))
-//				Motor.B.rotateTo(0);
-//			else if (us.getDistance() > d3)
-//				Motor.B.rotateTo(Math.min(2 * (us.getDistance() - d3), 30));
-//			else if (us.getDistance() > d2 && us.getDistance() < d3)
-//				Motor.B.rotateTo(Math.min(2 * (us.getDistance() - d2), 10));
-//			else if (us.getDistance() < d1)
-//				Motor.B.rotateTo(Math.max(2 * (us.getDistance() - d1), -10));
-//			Main.pilot.forward();
 
+
+			
 			Thread.yield();
 		}
 		File pw = new File("power_up_8bit.wav");

@@ -1,20 +1,21 @@
 import java.io.File;
 
-import lejos.nxt.LightSensor;
-import lejos.nxt.Motor;
-import lejos.nxt.SensorPort;
-import lejos.nxt.Sound;
+import lejos.nxt.*;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 import lejos.util.Delay;
 
+//import lejos.nxt.Sound;
+
 public class FollowTheLine2 implements Behavior {
 	private LightSensor ls;
 	private boolean suppressed = false;
-	DifferentialPilot pilot = new DifferentialPilot(30, 40, Motor.A, Motor.B,
-			true);
 	private boolean fromLeft = false;
 	private boolean alreadyForwards = false;
+	private boolean minus = false;
+
+	DifferentialPilot pilot = new DifferentialPilot(30, 40, Motor.A, Motor.B,
+			true);
 
 	static File pw = new File("power_up_8bit.wav");
 
@@ -31,9 +32,12 @@ public class FollowTheLine2 implements Behavior {
 
 	@Override
 	public void action() {
+		LCD.clear();
+		LCD.drawString("Mode : FollowTheBridge", 0, 0);
 		suppressed = false;
 		int angle = 10;
 		int limitAngle = angle;
+
 		while (!suppressed) {
 			Main.pilot.forward();
 			alreadyForwards = false;
@@ -41,13 +45,15 @@ public class FollowTheLine2 implements Behavior {
 				if (fromLeft) {
 					findStrightLine(limitAngle);
 					fromLeft = false;
+					minus = false;
 				} else {
 					findStrightLine(-limitAngle);
 					fromLeft = true;
+					minus = true;
 				}
 				limitAngle += angle;
 
-				// Move forward from the line
+				// Move a bit forward from the line
 				if (!alreadyForwards) {
 					Main.pilot.forward();
 					// Sound.playSample(pw, 25);
@@ -55,8 +61,16 @@ public class FollowTheLine2 implements Behavior {
 					alreadyForwards = true;
 				}
 			}
-			limitAngle = angle;
 
+			if (!minus && (limitAngle > (3 * angle))) {
+				// Main.angleList.add(limitAngle);
+				System.out.println(limitAngle);
+			} else if (minus && (limitAngle > (3 * angle))) {
+				// Main.angleList.add(-limitAngle);
+				System.out.println(-limitAngle);
+			}
+
+			limitAngle = angle;
 		}
 	}
 
