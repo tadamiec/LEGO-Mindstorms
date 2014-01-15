@@ -28,7 +28,7 @@ public class CollisionFront implements Behavior {
 
 		if (Main.level == 42){
 			Main.pilot.travel(-30);
-			Delay.msDelay(10000);
+			Delay.msDelay(10000); //Problem?
 			Main.pilot.travel(200);
 		}
 

@@ -1,5 +1,3 @@
-import java.util.Map;
-
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
@@ -12,11 +10,9 @@ import lejos.util.Delay;
 public class SymbolsReader implements Behavior {
 	private LightSensor ls;
 	private boolean suppressed = false;
-	private boolean fromLeft = false;
+	private boolean tryLeft = false;
 	private boolean alreadyForwards = false;
 	private boolean minus = false;
-	private boolean fastIncrease50 = false;
-	private boolean fastIncrease140 = false;
 
 	long startTime, currentTime;
 
@@ -60,13 +56,20 @@ public class SymbolsReader implements Behavior {
 					alreadyForwards = true;
 				}
 
-				if (fromLeft) {
-					findStrightLine(limitAngle);
-					fromLeft = false;
+				if (tryLeft) {
+					Main.pilot.rotate(angle);
+					// Turn back in order to try other direction
+					if (((ls.getLightValue() > 1000) && (Math.abs(limitAngle) > 180))) {
+						Main.pilot.rotate(-limitAngle);
+						tryLeft = false;
+					}
 					minus = false;
 				} else {
-					findStrightLine(-limitAngle);
-					fromLeft = true;
+					Main.pilot.rotate(-angle);
+					if (((ls.getLightValue() > 1000) && (Math.abs(limitAngle) > 180))) {
+						Main.pilot.rotate(-limitAngle);
+						tryLeft = true;
+					}
 					minus = true;
 				}
 
@@ -110,13 +113,5 @@ public class SymbolsReader implements Behavior {
 	public void suppress() {
 		suppressed = true;
 	}
-
-	private void findStrightLine(int limitAngle) {
-		Main.pilot.rotate(limitAngle);
-
-		if (!(ls.getLightValue() > 1000)) {
-			Main.pilot.rotate(-limitAngle);
-		}
-	}
-
+	
 }

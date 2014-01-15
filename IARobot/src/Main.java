@@ -6,10 +6,11 @@ import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.*;
 
 public class Main {
-	public static int level = 0;
+	public static int level = 42;
 
 	public static boolean door = false;
 	public static boolean doorBumped = false;
+	public static boolean colorChanged = false;
 	
 //	public static List<SymbolTravelData> symbolTravelDataList = new ArrayList<SymbolTravelData>();
 
@@ -27,11 +28,9 @@ public class Main {
 		SensorPort SPort4 = SensorPort.S4; // UltraSonicSensor
 
 
-		int d1 = 7;
-		int d2 = 15;
 
-		int Dark = 21;
-		int Light = 70;
+		int Dark = 27;
+		int Light = 58;
 //
 		Behavior CF = new CollisionFront( SPort1, SPort2); // (TSRight,TSLeft)
 //		Behavior CL = new CollisionLeft(SPort1, SPort2); // (TSRight,TSLeft)
@@ -54,6 +53,12 @@ public class Main {
 		Behavior CD = new ColorDetect(SPort3,SPort4, Dark, Light,SPort1, SPort2); // use bluetooth to open the door
 		Behavior [] BArray = {FB, CD, CF};
 
+
+
+		// UltrasonicSensor us = new UltrasonicSensor(SPort4);
+		//
+		// while(!Button.ESCAPE.isDown())
+		// System.out.println(us.getDistance());
 
 
 

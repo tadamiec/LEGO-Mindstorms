@@ -1,6 +1,7 @@
 
 import lejos.nxt.*;
 import lejos.robotics.subsumption.*;
+import lejos.util.Delay;
 
 public class ColorDetect implements Behavior {
 	private boolean suppressed = false;
@@ -23,7 +24,7 @@ public class ColorDetect implements Behavior {
 
 	public boolean takeControl() {
 		
-		return (ls.getLightValue()>950);
+		return (Main.colorChanged || ls.getLightValue() >= 1650); //kritik
 	}
 
 	public void suppress() {
@@ -37,16 +38,8 @@ public class ColorDetect implements Behavior {
 		suppressed = false;
 		int tmp = 0;
 
-		Main.pilot.travel(100); // Problem?
+		Main.pilot.travel(50); // Problem?
 		while (!suppressed){
-
-			//CENTERING
-			while(ls.getLightValue()<1000){ // Problem?
-				Main.pilot.rotate(30);
-				Main.pilot.rotate(-30);
-			}
-			Main.pilot.travel(100);
-			//END CENTERING
 
 			//ANGLE CORRECTION
 			while (us.getDistance()>100 & tmp == 0)
@@ -61,22 +54,23 @@ public class ColorDetect implements Behavior {
 			//END ANGLE CORRECTION
 
 			//FORWARD TO ELEVATOR
-			while(ls.getLightValue()>600){
+			while(ls.getLightValue()>1000){
 				Main.pilot.forward();
 			}
 
 			//WAIT FOR ELEVATOR
 			LCD.clear();
-			LCD.drawString("Ich warte für den aufzug", 0, 0);
-			while (ls.getLightValue() < 800){
+			LCD.drawString("Ich warte fur den aufzug", 0, 0);
+			while (ls.getLightValue() < 1450){
 				Main.pilot.stop();
 			}
 
 			//GO INSIDE ELEVATOR
 			LCD.clear();
 			LCD.drawString("Go go go!", 0, 0);
-			Main.pilot.forward();
-
+			Main.pilot.travel(120);
+			Delay.msDelay(13000);
+			Main.pilot.travel(300);
 			Thread.yield();
 			}
 			
