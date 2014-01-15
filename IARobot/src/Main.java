@@ -14,13 +14,7 @@ public class Main {
 //	public static List<SymbolTravelData> symbolTravelDataList = new ArrayList<SymbolTravelData>();
 
 	public static DifferentialPilot pilot = new DifferentialPilot(18, 95 , Motor.B, Motor.C);
-	public enum Level{
-		START{0},
-		BRIDGE{1},
-		SYMBOL{2},
-		SHOOT{4},
-		BOSS{5},	
-	};
+
 
 	/**
 	 * @param args
@@ -39,7 +33,7 @@ public class Main {
 		int Dark = 21;
 		int Light = 70;
 //
-//		Behavior CF = new CollisionFront( SPort1, SPort2); // (TSRight,TSLeft)
+		Behavior CF = new CollisionFront( SPort1, SPort2); // (TSRight,TSLeft)
 //		Behavior CL = new CollisionLeft(SPort1, SPort2); // (TSRight,TSLeft)
 //		Behavior CR = new CollisionRight(SPort1, SPort2); // (TSRight,TSLeft)
 
@@ -55,27 +49,21 @@ public class Main {
 //		Behavior Test = new DiffPilotMotorTest();
 
 
-		Behavior OD = new OpenADoor(); // use bluetooth to open the door
+//		Behavior OD = new OpenADoor(); // use bluetooth to open the door
 
 		Behavior CD = new ColorDetect(SPort3,SPort4, Dark, Light,SPort1, SPort2); // use bluetooth to open the door
-		Behavior [] BArray = {CD};
+		Behavior [] BArray = {FB, CD, CF};
 
 
 
-		// UltrasonicSensor us = new UltrasonicSensor(SPort4);
-		//
-		// while(!Button.ESCAPE.isDown())
-		// System.out.println(us.getDistance());
 
-
-
-		Arbitrator Labyrinthe = new Arbitrator(BArray);
+		Arbitrator Rennen = new Arbitrator(BArray);
 
 		LCD.drawString("Press ENTER", 0, 0);
 		Button.ENTER.waitForPressAndRelease();
 		LCD.clear();
 
-		Labyrinthe.start();
+		Rennen.start();
 
 	}
 

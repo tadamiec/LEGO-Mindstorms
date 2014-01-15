@@ -90,14 +90,14 @@ public class SymbolsReader implements Behavior {
 				currentTime = System.currentTimeMillis();
 				symbolTravelData.setAngle(limitAngle);
 				symbolTravelData.setTime(currentTime - startTime);
-				Main.symbolTravelDataList.add(symbolTravelData);
+//				Main.symbolTravelDataList.add(symbolTravelData);
 				System.out.println(limitAngle);
 				System.out.println(currentTime - startTime);
 			} else if (minus && (limitAngle > (3 * angle))) {
 				currentTime = System.currentTimeMillis();
 				symbolTravelData.setAngle(limitAngle);
 				symbolTravelData.setTime(currentTime - startTime);
-				Main.symbolTravelDataList.add(symbolTravelData);
+//				Main.symbolTravelDataList.add(symbolTravelData);
 				System.out.println(-limitAngle);
 				System.out.println(currentTime - startTime);
 			}

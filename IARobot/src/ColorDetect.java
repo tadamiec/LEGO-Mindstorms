@@ -72,6 +72,11 @@ public class ColorDetect implements Behavior {
 				Main.pilot.stop();
 			}
 
+			//GO INSIDE ELEVATOR
+			LCD.clear();
+			LCD.drawString("Go go go!", 0, 0);
+			Main.pilot.forward();
+
 			Thread.yield();
 			}
 			
@@ -88,17 +93,5 @@ public class ColorDetect implements Behavior {
 //		// Clean up
 //		suppress();
 ////		Motor.B.rotateTo(0);
-////		Motor.A.stop();
-
-
-
-
-			//GO INSIDE ELEVATOR
-			LCD.clear();
-			LCD.drawString("Go go go!", 0, 0);
-			Main.pilot.forward();
-
-			Thread.yield();
-		}
-
+////		Motor.A.stop(
 	}
