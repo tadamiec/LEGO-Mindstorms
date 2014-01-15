@@ -4,24 +4,26 @@ import lejos.robotics.subsumption.*;
 
 public class ColorDetect implements Behavior {
 	private boolean suppressed = false;
-	private LightSensor ls;
-	private UltrasonicSensor us;
 	private TouchSensor rts;
 	private TouchSensor lts;
+
 	int collision_happened = 0;
+
+	private LightSensor ls;
+	private UltrasonicSensor us;
 	
 	public ColorDetect( SensorPort SP3, SensorPort SP4,int Dark, int Light,SensorPort SP1, SensorPort SP2) {
+		rts = new TouchSensor(SP1);
 		lts = new TouchSensor(SP2);
-		rts = new TouchSensor(SP3);
+		ls = new LightSensor(SP3);
 		us = new UltrasonicSensor(SP4);
-		this.ls = new LightSensor(SP3);
 		ls.setLow(Dark);
 		ls.setHigh(Light);
 	}
 
 	public boolean takeControl() {
 		
-		return (true);
+		return (ls.getLightValue()>950);
 	}
 
 	public void suppress() {
@@ -30,11 +32,15 @@ public class ColorDetect implements Behavior {
 	}
 
 	public void action() {
+		LCD.clear();
+		LCD.drawString("Mode : ColorDetect", 0, 0);
 		suppressed = false;
 		int tmp = 0;
-		LCD.clear();
-		LCD.drawString("am aufzug", 0, 0);
-		while (!suppressed){
+
+		Main.pilot.travel(100);
+		while (!(lts.isPressed() || rts.isPressed()) && !suppressed){
+			//CENTERING
+
 			while (us.getDistance()>100 & tmp == 0)
 			{
 			Main.pilot.rotate(15);
@@ -44,6 +50,7 @@ public class ColorDetect implements Behavior {
 				Main.pilot.rotate(-55);
 			}
 			tmp = 1;
+
 			
 //			if (ls.getLightValue() > 600) {
 //				Main.pilot.forward();
@@ -52,12 +59,22 @@ public class ColorDetect implements Behavior {
 //				Main.pilot.stop();
 			while (!(lts.isPressed() || rts.isPressed()) && collision_happened == 0)
 			{
+
+			//END ANGLE CORRECTION
+
+			//FORWARD TO ELEVATOR
+
 			while(ls.getLightValue()>600){
 				Main.pilot.travel(200);
 			}
+
+			//WAIT FOR ELEVATOR
+			LCD.clear();
+			LCD.drawString("Ich warte für den aufzug", 0, 0);
 			while (ls.getLightValue() < 800){
 				Main.pilot.stop();
 			}
+
 			}
 			while (lts.isPressed() || rts.isPressed())
 			{
@@ -81,7 +98,16 @@ public class ColorDetect implements Behavior {
 //		suppress();
 ////		Motor.B.rotateTo(0);
 ////		Motor.A.stop();
-		LCD.clear();
+
+
+
+
+			//GO INSIDE ELEVATOR
+			LCD.clear();
+			LCD.drawString("Go go go!", 0, 0);
+			Main.pilot.forward();
+
+			Thread.yield();
+		}
 
 	}
-}

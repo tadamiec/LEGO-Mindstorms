@@ -23,7 +23,6 @@ public class LevelBarCode implements Behavior{
 		boolean wasWhite = false;
 		boolean wasBlack = true;
 		
-//		Motor.B.rotateTo(0);
 		boolean EndBarcode = false;
 		long Time = System.currentTimeMillis();
 		

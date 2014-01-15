@@ -1,8 +1,6 @@
 import java.io.File;
 
-import lejos.nxt.LightSensor;
-import lejos.nxt.Motor;
-import lejos.nxt.SensorPort;
+import lejos.nxt.*;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Behavior;
 import lejos.util.Delay;
@@ -34,6 +32,8 @@ public class FollowTheLine2 implements Behavior {
 
 	@Override
 	public void action() {
+		LCD.clear();
+		LCD.drawString("Mode : FollowTheBridge", 0, 0);
 		suppressed = false;
 		int angle = 10;
 		int limitAngle = angle;

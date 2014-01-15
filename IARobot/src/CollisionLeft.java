@@ -23,8 +23,6 @@ public class CollisionLeft implements Behavior {
 	}
 	
 	public void action() {
-		LCD.clear();
-		LCD.drawString("Es gibt ein object an meinem Links", 0, 0);
 
 		Main.pilot.rotate(-45);
 
