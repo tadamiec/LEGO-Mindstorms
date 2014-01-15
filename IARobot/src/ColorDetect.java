@@ -6,6 +6,9 @@ public class ColorDetect implements Behavior {
 	private boolean suppressed = false;
 	private TouchSensor rts;
 	private TouchSensor lts;
+
+	int collision_happened = 0;
+
 	private LightSensor ls;
 	private UltrasonicSensor us;
 	
@@ -33,13 +36,13 @@ public class ColorDetect implements Behavior {
 		LCD.drawString("Mode : ColorDetect", 0, 0);
 		suppressed = false;
 		int tmp = 0;
-		Main.pilot.travel(100);
+
+		Main.pilot.travel(100); // Problem?
 		while (!suppressed){
+
 			//CENTERING
-			while(ls.getLightValue()<1000){
-				//
+			while(ls.getLightValue()<1000){ // Problem?
 				Main.pilot.rotate(30);
-				//
 				Main.pilot.rotate(-30);
 			}
 			Main.pilot.travel(100);
@@ -69,6 +72,27 @@ public class ColorDetect implements Behavior {
 				Main.pilot.stop();
 			}
 
+			Thread.yield();
+			}
+			
+		}
+		
+		
+		
+
+
+
+//		while (Main.pilot.isMoving() && !suppressed)
+//			Thread.yield();
+//
+//		// Clean up
+//		suppress();
+////		Motor.B.rotateTo(0);
+////		Motor.A.stop();
+
+
+
+
 			//GO INSIDE ELEVATOR
 			LCD.clear();
 			LCD.drawString("Go go go!", 0, 0);
@@ -76,5 +100,5 @@ public class ColorDetect implements Behavior {
 
 			Thread.yield();
 		}
+
 	}
-}

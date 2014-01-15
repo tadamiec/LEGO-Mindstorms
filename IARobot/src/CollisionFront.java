@@ -27,7 +27,7 @@ public class CollisionFront implements Behavior {
 		LCD.drawString("Mode : CollisionFront", 0, 0);
 
 		if (Main.level == 42){
-			Main.pilot.travel(-10);
+			Main.pilot.travel(-30);
 			Delay.msDelay(10000);
 			Main.pilot.travel(200);
 		}

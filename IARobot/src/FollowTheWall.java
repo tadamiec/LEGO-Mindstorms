@@ -15,17 +15,16 @@ public class FollowTheWall implements Behavior {
 	private boolean labSolved = false;
 	private UltrasonicSensor us;
 	private LightSensor ls;
-	private int d1;
-	private int d2;
-	private int d3;
 
-	public FollowTheWall(SensorPort US, SensorPort LS,
-			int Dark, int Light) {
+
+	public FollowTheWall(SensorPort US, SensorPort LS,int Dark, int Light) {
 		us = new UltrasonicSensor(US);
 		ls = new LightSensor(LS);
 		ls.setHigh(Light);
 		ls.setLow(Dark);
-	
+
+		
+
 	}
 
 	public boolean takeControl() {
@@ -48,7 +47,6 @@ public class FollowTheWall implements Behavior {
 			Main.pilot.forward();
 
 
-
 			if(us.getDistance() > 40){
 				Main.pilot.travel(100);
 				Main.pilot.rotate(-90);
@@ -69,7 +67,6 @@ public class FollowTheWall implements Behavior {
 		LCD.clear();
 		LCD.drawString("Ich mach nix", 0, 0);
 		Main.pilot.stop();
-		//		Motor.A.stop();
 	}
 
 }
