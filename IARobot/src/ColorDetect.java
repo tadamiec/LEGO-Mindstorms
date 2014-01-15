@@ -8,6 +8,7 @@ public class ColorDetect implements Behavior {
 	private UltrasonicSensor us;
 	private TouchSensor rts;
 	private TouchSensor lts;
+	int collision_happened = 0;
 	
 	public ColorDetect( SensorPort SP3, SensorPort SP4,int Dark, int Light,SensorPort SP1, SensorPort SP2) {
 		lts = new TouchSensor(SP2);
@@ -33,7 +34,7 @@ public class ColorDetect implements Behavior {
 		int tmp = 0;
 		LCD.clear();
 		LCD.drawString("am aufzug", 0, 0);
-		while (!(lts.isPressed() || rts.isPressed()) && !suppressed){
+		while (!suppressed){
 			while (us.getDistance()>100 & tmp == 0)
 			{
 			Main.pilot.rotate(15);
@@ -49,15 +50,25 @@ public class ColorDetect implements Behavior {
 //			}
 //			else 
 //				Main.pilot.stop();
+			while (!(lts.isPressed() || rts.isPressed()) && collision_happened == 0)
+			{
 			while(ls.getLightValue()>600){
-				Main.pilot.forward();
+				Main.pilot.travel(200);
 			}
 			while (ls.getLightValue() < 800){
 				Main.pilot.stop();
 			}
-			Main.pilot.forward();
+			}
+			while (lts.isPressed() || rts.isPressed())
+			{
+				Main.pilot.travel(-50);
+				Main.pilot.stop();
+				collision_happened = 1;
+			}
+			
 			Thread.yield();
 		}
+		
 		
 		
 
