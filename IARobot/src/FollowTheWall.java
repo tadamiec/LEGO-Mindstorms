@@ -47,6 +47,10 @@ public class FollowTheWall implements Behavior {
 			Main.pilot.forward();
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f241dfb5945ccc82b55c39deb76751ea85acdd4a
 			if(us.getDistance() > 40){
 				Main.pilot.travel(100);
 				Main.pilot.rotate(-90);
@@ -55,6 +59,10 @@ public class FollowTheWall implements Behavior {
 				}
 				Main.pilot.travel(50);
 			}
+<<<<<<< HEAD
+=======
+
+>>>>>>> f241dfb5945ccc82b55c39deb76751ea85acdd4a
 
 			
 			Thread.yield();

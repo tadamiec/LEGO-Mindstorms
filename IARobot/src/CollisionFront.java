@@ -1,5 +1,6 @@
 import lejos.nxt.*;
 import lejos.robotics.subsumption.*;
+import lejos.util.Delay;
 
 public class CollisionFront implements Behavior {
 	private TouchSensor TSright;
@@ -23,37 +24,27 @@ public class CollisionFront implements Behavior {
 	public void action() {
 		suppressed = false;
 		LCD.clear();
-		LCD.drawString("Es gibt ein object gerade aus !", 0, 0);
+		LCD.drawString("Mode : CollisionFront", 0, 0);
 
-		if (Main.door) {
-//			Motor.A.stop();
-			Main.pilot.stop();
-			Main.doorBumped = true;
-//			Motor.A.rotate(-180);
+		if (Main.level == 42){
 			Main.pilot.travel(-10);
+			Delay.msDelay(10000);
+			Main.pilot.travel(200);
 		}
 
 		else {
-			// Real Action
-//			Motor.A.stop();
-//			Motor.B.rotateTo(0);
-//			Motor.A.rotate(-90);
-			Main.pilot.stop();
-			
-			Main.pilot.travel(-10);
-			
-			Main.pilot.rotate(90);
-			
-//			if (us.getDistance() < 30) {
-////				Motor.C.rotateTo(-90);
-//				while (us.getDistance() < 30)
-//					Motor.A.backward();
-//				Motor.A.rotate(-540);
-//				Motor.B.rotateTo(-25);
-//				Motor.C.rotateTo(90);
-//				Motor.A.rotate(540);
-//			} else
-//				Motor.A.rotate(-540);
+
+			if (Main.door) {
+				Main.pilot.stop();
+				Main.doorBumped = true;
+				Main.pilot.travel(-10);
+			}
+
+			else {
+				Main.pilot.stop();
+				Main.pilot.travel(-10);
+				Main.pilot.rotate(90);
+			}
 		}
 
 		while (Main.pilot.isMoving() && !suppressed)
@@ -61,9 +52,6 @@ public class CollisionFront implements Behavior {
 
 		// Clean up
 		suppress();
-//		Motor.B.rotateTo(0);
-//		Motor.A.stop();
 		LCD.clear();
-
 	}
 }
