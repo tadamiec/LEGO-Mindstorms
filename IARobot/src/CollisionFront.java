@@ -26,7 +26,7 @@ public class CollisionFront implements Behavior {
 		LCD.clear();
 		LCD.drawString("Mode : CollisionFront", 0, 0);
 
-		if (Main.level == 42){
+		if (Main.level == "Labyrinth"){
 			Main.pilot.travel(-10);
 			Delay.msDelay(10000);
 			Main.pilot.travel(200);

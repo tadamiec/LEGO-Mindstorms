@@ -46,7 +46,7 @@ public class LevelBarCode implements Behavior{
 			Thread.yield();
 		}
 		suppress();
-		Main.level++;		
+		//Main.level++;		
 	}
 
 	@Override
