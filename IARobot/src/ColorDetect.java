@@ -1,4 +1,3 @@
-
 import lejos.nxt.*;
 import lejos.robotics.subsumption.*;
 
@@ -11,8 +10,9 @@ public class ColorDetect implements Behavior {
 
 	private LightSensor ls;
 	private UltrasonicSensor us;
-	
-	public ColorDetect( SensorPort SP3, SensorPort SP4,int Dark, int Light,SensorPort SP1, SensorPort SP2) {
+
+	public ColorDetect(SensorPort SP3, SensorPort SP4, int Dark, int Light,
+			SensorPort SP1, SensorPort SP2) {
 		rts = new TouchSensor(SP1);
 		lts = new TouchSensor(SP2);
 		ls = new LightSensor(SP3);
@@ -22,8 +22,8 @@ public class ColorDetect implements Behavior {
 	}
 
 	public boolean takeControl() {
-		
-		return (ls.getLightValue()>950);
+
+		return (ls.getLightValue() > 950);
 	}
 
 	public void suppress() {
@@ -38,67 +38,57 @@ public class ColorDetect implements Behavior {
 		int tmp = 0;
 
 		Main.pilot.travel(100); // Problem?
-		while (!suppressed){
+		while (!suppressed) {
 
-			//CENTERING
-			while(ls.getLightValue()<1000){ // Problem?
+			// CENTERING
+			while (ls.getLightValue() < 1000) { // Problem?
 				Main.pilot.rotate(30);
 				Main.pilot.rotate(-30);
 			}
 			Main.pilot.travel(100);
-			//END CENTERING
+			// END CENTERING
 
-			//ANGLE CORRECTION
-			while (us.getDistance()>100 & tmp == 0)
-			{
-			Main.pilot.rotate(15);
+			// ANGLE CORRECTION
+			while (us.getDistance() > 100 & tmp == 0) {
+				Main.pilot.rotate(15);
 			}
-			
-			if (tmp == 0){
+
+			if (tmp == 0) {
 				Main.pilot.rotate(-55);
 			}
 			tmp = 1;
-			//END ANGLE CORRECTION
+			// END ANGLE CORRECTION
 
-			//FORWARD TO ELEVATOR
-			while(ls.getLightValue()>600){
+			// FORWARD TO ELEVATOR
+			while (ls.getLightValue() > 600) {
 				Main.pilot.forward();
 			}
 
-			//WAIT FOR ELEVATOR
+			// WAIT FOR ELEVATOR
 			LCD.clear();
 			LCD.drawString("Ich warte für den aufzug", 0, 0);
-			while (ls.getLightValue() < 800){
+			while (ls.getLightValue() < 800) {
 				Main.pilot.stop();
 			}
-
-			Thread.yield();
-			}
-			
-		}
-		
-		
-		
-
-
-
-//		while (Main.pilot.isMoving() && !suppressed)
-//			Thread.yield();
-//
-//		// Clean up
-//		suppress();
-////		Motor.B.rotateTo(0);
-////		Motor.A.stop();
-
-
-
-
-			//GO INSIDE ELEVATOR
-			LCD.clear();
-			LCD.drawString("Go go go!", 0, 0);
-			Main.pilot.forward();
 
 			Thread.yield();
 		}
 
 	}
+
+	// while (Main.pilot.isMoving() && !suppressed)
+	// Thread.yield();
+	//
+	// // Clean up
+	// suppress();
+	// // Motor.B.rotateTo(0);
+	// // Motor.A.stop();
+
+	// GO INSIDE ELEVATOR
+	/*
+	 * LCD.clear(); LCD.drawString("Go go go!", 0, 0); Main.pilot.forward();
+	 * 
+	 * Thread.yield();
+	 */
+
+}
