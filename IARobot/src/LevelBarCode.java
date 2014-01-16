@@ -46,8 +46,12 @@ public class LevelBarCode implements Behavior{
 			Thread.yield();
 		}
 		suppress();
+<<<<<<< HEAD
 		Main.level++;
 		Main.pilot.stop();
+=======
+		//Main.level++;		
+>>>>>>> bf5cc9529c48e32a00b959278c0b04e1c8f979c7
 	}
 
 	@Override

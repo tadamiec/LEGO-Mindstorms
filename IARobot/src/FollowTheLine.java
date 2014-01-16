@@ -7,7 +7,7 @@ import lejos.util.Delay;
 
 //import lejos.nxt.Sound;
 
-public class FollowTheLine2 implements Behavior {
+public class FollowTheLine implements Behavior {
 	private LightSensor ls;
 	private boolean suppressed = false;
 	private boolean fromLeft = true;
@@ -20,7 +20,7 @@ public class FollowTheLine2 implements Behavior {
 
 	static File pw = new File("power_up_8bit.wav");
 
-	public FollowTheLine2(SensorPort LS, int Dark, int Light) {
+	public FollowTheLine(SensorPort LS, int Dark, int Light) {
 		ls = new LightSensor(LS);
 		ls.setLow(Dark);
 		ls.setHigh(Light);

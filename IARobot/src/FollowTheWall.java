@@ -16,14 +16,11 @@ public class FollowTheWall implements Behavior {
 	private UltrasonicSensor us;
 	private LightSensor ls;
 
-
-	public FollowTheWall(SensorPort US, SensorPort LS,int Dark, int Light) {
+	public FollowTheWall(SensorPort US, SensorPort LS, int Dark, int Light) {
 		us = new UltrasonicSensor(US);
 		ls = new LightSensor(LS);
 		ls.setHigh(Light);
 		ls.setLow(Dark);
-
-		
 
 	}
 
@@ -41,11 +38,11 @@ public class FollowTheWall implements Behavior {
 		LCD.clear();
 		LCD.drawString("Ich führe ein Wand", 0, 0);
 
-
-		while (/*ls.getLightValue() < 1200 &&*/ !Button.ESCAPE.isDown()
+		while (/* ls.getLightValue() < 1200 && */!Button.ESCAPE.isDown()
 				&& !suppressed) {
 			Main.pilot.forward();
 
+<<<<<<< HEAD
 			if(us.getDistance() > 100){
 				Main.pilot.travel(100);
 				Main.pilot.rotate(-90);
@@ -54,6 +51,20 @@ public class FollowTheWall implements Behavior {
 				}
 				Main.pilot.travel(50);
 			}		
+=======
+
+			if(us.getDistance() > 40){
+
+				Main.pilot.travel(100);
+				Main.pilot.rotate(-90);
+				while (us.getDistance() > 40) {
+					Main.pilot.forward();
+				}
+				Main.pilot.travel(50);
+			}
+
+			
+>>>>>>> bf5cc9529c48e32a00b959278c0b04e1c8f979c7
 			Thread.yield();
 		}
 		File pw = new File("power_up_8bit.wav");
