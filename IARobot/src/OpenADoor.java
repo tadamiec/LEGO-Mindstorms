@@ -1,31 +1,17 @@
 import java.io.DataOutputStream;
-
 import java.io.IOException;
 
 import javax.bluetooth.RemoteDevice;
 
-import lejos.nxt.Button;
 import lejos.nxt.Motor;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
-import lejos.nxt.comm.NXTConnection;
-import lejos.util.Delay;
-
-import java.io.File;
-
-import lejos.nxt.LightSensor;
-import lejos.nxt.Motor;
-import lejos.nxt.SensorPort;
-import lejos.nxt.Sound;
 import lejos.robotics.subsumption.Behavior;
 import lejos.util.Delay;
 
 public class OpenADoor implements Behavior {
 	public boolean suppressed = false;
 
-	public void OpenADoor() {
-
-	}
 
 	@Override
 	public boolean takeControl() {

@@ -26,25 +26,13 @@ public class CollisionFront implements Behavior {
 		LCD.clear();
 		LCD.drawString("Mode : CollisionFront", 0, 0);
 
-<<<<<<< HEAD
-//		if (Main.level == 42){
-//			Main.pilot.travel(-10);
-//			Delay.msDelay(10000);
-//			Main.pilot.travel(200);
-//		}
-=======
-<<<<<<< HEAD
-		if (Main.level == "Labyrinth"){
-			Main.pilot.travel(-10);
-			Delay.msDelay(10000);
-=======
+
+
 		if (Main.level == 42){
 			Main.pilot.travel(-30);
 			Delay.msDelay(10000); //Problem?
->>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 			Main.pilot.travel(200);
 		}
->>>>>>> bf5cc9529c48e32a00b959278c0b04e1c8f979c7
 
 //		else {
 

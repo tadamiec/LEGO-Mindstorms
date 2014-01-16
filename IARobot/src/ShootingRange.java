@@ -1,40 +1,56 @@
+import lejos.nxt.LCD;
 import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.subsumption.Behavior;
 
-
-public class ShootingRange implements Behavior , ShootingRangeListener {
+public class ShootingRange implements Behavior, ShootingRangeListener {
 	private boolean suppressed = false;
 	private ShootingRangeControl Shooter = new ShootingRangeControl(this);
-	private boolean successed = false;
-	private int angle = 45;
 	private UltrasonicSensor us;
-	
-	public ShootingRange(SensorPort SP){
+
+	public ShootingRange(SensorPort SP) {
 		us = new UltrasonicSensor(SP);
 	}
-	
+
 	@Override
 	public boolean takeControl() {
-		return !successed;
+		return Main.level == 8;
 	}
 
 	@Override
 	public void action() {
+		LCD.clear();
+		LCD.drawString("Shooter", 0, 0);
 		suppressed = false;
 		
-		Shooter.connect();
-		
-		Main.pilot.rotate(90);
-		System.out.print(us.getDistance());
-		
-		while(!suppressed && !successed){
-			Shooter.shoot(angle);
+		if(Main.startFtl){
+			LCD.drawString("I want FTL", 0, 1);
+			Main.ftl = true;
+			Main.startFtl = false;
+			suppress();
+		}
+
+		if (!suppressed) {
+			LCD.drawString("connecting...", 0, 2);
+
+			Shooter.connect();
+			LCD.drawString("connected.", 0, 3);
+
+			Main.pilot.rotate(100);
+			Main.pilot.travel(-10);
+			System.out.print(us.getDistance());
+		}
+
+		while (!suppressed) {
+			if (us.getDistance() < 80)
+				Shooter.shoot(us.getDistance() + 15);
+
 			Thread.yield();
 		}
-		suppress();
-		Shooter.disconnect();
 		
+		
+		suppress();
+
 	}
 
 	@Override
@@ -45,28 +61,28 @@ public class ShootingRange implements Behavior , ShootingRangeListener {
 	@Override
 	public void shootSuccess() {
 		System.out.println("Shoot Successfull !");
-		successed = true;
+		Shooter.disconnect();
+		Main.pilot.travel(150);
+		Main.startFtl = true;
+		LCD.clear();
+		Main.level = 0;
+		Main.ftl = true;
 	}
 
 	@Override
 	public void shootFail() {
 		System.out.println("Shoot Failed :(");
-		if(angle >= 180)
-			angle-=10;
-		else if(angle <= 90)
-			angle+=10;
+
 	}
 
 	@Override
 	public void shootInvalidAngle() {
 		System.out.println("InvalidAngle");
-		angle = 90;
 	}
 
 	@Override
 	public void error(String message) {
 		System.err.println(message);
 	}
-	
 
 }

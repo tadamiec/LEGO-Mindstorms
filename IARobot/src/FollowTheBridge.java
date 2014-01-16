@@ -89,20 +89,7 @@ public class FollowTheBridge implements Behavior {
 				}
 
 			}
-<<<<<<< HEAD
-			gapFound = true;
-			Motor.A.forward();
-			if (ls.getLightValue() < 600) 
-				Motor.B.rotateTo(15);
-			else
-				Motor.B.rotateTo(-10);
-//			if (adjustmentNeeded) {
-//				Main.pilot.rotate(-4 * step);
-//				adjustmentNeeded = false;
-//			}
-			Main.pilot.travel(200);
-=======
->>>>>>> bf5cc9529c48e32a00b959278c0b04e1c8f979c7
+
 
 			Thread.yield();
 

@@ -1,5 +1,9 @@
+import java.io.File;
+
+import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.nxt.SensorPort;
+import lejos.nxt.Sound;
 import lejos.robotics.subsumption.Behavior;
 
 
@@ -16,17 +20,19 @@ public class LevelBarCode implements Behavior{
 	}
 	
 	public boolean takeControl() {
-		return !EndBarcode;
+		return Main.level == 0;
 	}
 
 	public void action() {
+		LCD.clear();
+		LCD.drawString("BarCode", 0, 0);
 		suppressed = false;
 		boolean wasWhite = false;
 		boolean wasBlack = true;
-		
+		EndBarcode = false;
+		Main.level = 0;
 		long Time = System.currentTimeMillis();
 		while(!EndBarcode && !suppressed){
-			System.out.println(ls.getLightValue());
 			Main.pilot.forward();
 			if((wasWhite && ls.getLightValue() < 1700)){
 				wasWhite = false;
@@ -38,20 +44,26 @@ public class LevelBarCode implements Behavior{
 				wasWhite = true;
 				wasBlack = false;
 				Time = System.currentTimeMillis();
+				Main.level++;
 			}
-			else if((System.currentTimeMillis() - Time) > 1000){
+			else if((System.currentTimeMillis() - Time) > 2000){
+				if(wasWhite)
+					Main.level--;
 				EndBarcode = true;
 			}
 				
 			Thread.yield();
 		}
-		suppress();
-<<<<<<< HEAD
-		Main.level++;
+		if(Main.level == 4)
+			Main.pilot.travel(100);
 		Main.pilot.stop();
-=======
-		//Main.level++;		
->>>>>>> bf5cc9529c48e32a00b959278c0b04e1c8f979c7
+		System.out.println(Main.level);
+		File pw = new File("power_up_8bit.wav");
+		Sound.playSample(pw, 50);
+
+		suppress();
+	
+
 	}
 
 	@Override
