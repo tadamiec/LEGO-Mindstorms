@@ -10,10 +10,11 @@ import lejos.util.Delay;
 public class FollowTheLine2 implements Behavior {
 	private LightSensor ls;
 	private boolean suppressed = false;
-	private boolean fromLeft = false;
+	private boolean fromLeft = true;
 	private boolean alreadyForwards = false;
 	private boolean minus = false;
-
+	private boolean EndLine = false;
+	
 	DifferentialPilot pilot = new DifferentialPilot(30, 40, Motor.A, Motor.B,
 			true);
 
@@ -27,7 +28,8 @@ public class FollowTheLine2 implements Behavior {
 
 	@Override
 	public boolean takeControl() {
-		return (ls.getLightValue() > 1100 && ls.getLightValue() < 1500);
+//		return (ls.getLightValue() > 1100 && ls.getLightValue() < 1500);
+		return !EndLine;
 	}
 
 	@Override
@@ -35,43 +37,62 @@ public class FollowTheLine2 implements Behavior {
 		LCD.clear();
 		LCD.drawString("Mode : FollowTheBridge", 0, 0);
 		suppressed = false;
-		int angle = 10;
+		int angle = 0;
 		int limitAngle = angle;
-
-		while (!suppressed) {
+		long currentTime;
+		boolean bothSide = false;
+		
+		while (!EndLine && !suppressed) {
 			Main.pilot.forward();
 			alreadyForwards = false;
-			while (ls.getLightValue() > 600 && ls.getLightValue() < 900) {
+			fromLeft = true;
+			currentTime = System.currentTimeMillis();
+			while (ls.getLightValue() > 1000 && ls.getLightValue() < 1200) {
 				if (fromLeft) {
-					findStrightLine(limitAngle);
-					fromLeft = false;
-					minus = false;
+					Main.pilot.rotateRight();
+//					findStrightLine(limitAngle);
+					if (System.currentTimeMillis() - currentTime > 2000){
+						fromLeft = false;
+						Main.pilot.rotate(Main.pilot.getRotateSpeed()*(System.currentTimeMillis() - currentTime));
+
+					}
+//					minus = false;
 				} else {
-					findStrightLine(-limitAngle);
-					fromLeft = true;
-					minus = true;
+					Main.pilot.rotateLeft();
+					
+//					findStrightLine(-limitAngle+10);
+					if (System.currentTimeMillis() - currentTime > 2000){
+						bothSide = true;
+						Main.pilot.rotate(-Main.pilot.getRotateSpeed()*(System.currentTimeMillis() - currentTime));
+					}
+//					minus = true;
 				}
 				limitAngle += angle;
+				
+				if(bothSide)
+					EndLine = true;
 
 				// Move a bit forward from the line
 				if (!alreadyForwards) {
-					Main.pilot.forward();
+					Main.pilot.travel(20);
 					// Sound.playSample(pw, 25);
-					Delay.msDelay(200);
+//					Delay.msDelay(200);
 					alreadyForwards = true;
 				}
 			}
-
-			if (!minus && (limitAngle > (3 * angle))) {
-				// Main.angleList.add(limitAngle);
-				System.out.println(limitAngle);
-			} else if (minus && (limitAngle > (3 * angle))) {
-				// Main.angleList.add(-limitAngle);
-				System.out.println(-limitAngle);
-			}
-
+//
+//			if (!minus && (limitAngle > (3 * angle))) {
+//				// Main.angleList.add(limitAngle);
+//				System.out.println(limitAngle);
+//			} else if (minus && (limitAngle > (3 * angle))) {
+//				// Main.angleList.add(-limitAngle);
+//				System.out.println(-limitAngle);
+//			}
 			limitAngle = angle;
+			Thread.yield();
 		}
+		suppress();
+
 	}
 
 	@Override
@@ -82,7 +103,7 @@ public class FollowTheLine2 implements Behavior {
 	private void findStrightLine(int limitAngle) {
 		Main.pilot.rotate(limitAngle);
 
-		if (!(ls.getLightValue() > 1100)) {
+		if (!(ls.getLightValue() > 1400)) {
 			Main.pilot.rotate(-limitAngle);
 		}
 	}

@@ -46,25 +46,14 @@ public class FollowTheWall implements Behavior {
 				&& !suppressed) {
 			Main.pilot.forward();
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> f241dfb5945ccc82b55c39deb76751ea85acdd4a
-			if(us.getDistance() > 40){
+			if(us.getDistance() > 100){
 				Main.pilot.travel(100);
 				Main.pilot.rotate(-90);
-				while(us.getDistance() > 40){
+				while(us.getDistance() > 100){
 					Main.pilot.forward();
 				}
 				Main.pilot.travel(50);
-			}
-<<<<<<< HEAD
-=======
-
->>>>>>> f241dfb5945ccc82b55c39deb76751ea85acdd4a
-
-			
+			}		
 			Thread.yield();
 		}
 		File pw = new File("power_up_8bit.wav");

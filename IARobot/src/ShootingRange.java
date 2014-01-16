@@ -1,3 +1,5 @@
+import lejos.nxt.SensorPort;
+import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.subsumption.Behavior;
 
 
@@ -5,8 +7,13 @@ public class ShootingRange implements Behavior , ShootingRangeListener {
 	private boolean suppressed = false;
 	private ShootingRangeControl Shooter = new ShootingRangeControl(this);
 	private boolean successed = false;
-	private int angle = 90;
-		
+	private int angle = 45;
+	private UltrasonicSensor us;
+	
+	public ShootingRange(SensorPort SP){
+		us = new UltrasonicSensor(SP);
+	}
+	
 	@Override
 	public boolean takeControl() {
 		return !successed;
@@ -18,6 +25,8 @@ public class ShootingRange implements Behavior , ShootingRangeListener {
 		
 		Shooter.connect();
 		
+		Main.pilot.rotate(90);
+		System.out.print(us.getDistance());
 		
 		while(!suppressed && !successed){
 			Shooter.shoot(angle);
@@ -35,11 +44,13 @@ public class ShootingRange implements Behavior , ShootingRangeListener {
 
 	@Override
 	public void shootSuccess() {
+		System.out.println("Shoot Successfull !");
 		successed = true;
 	}
 
 	@Override
 	public void shootFail() {
+		System.out.println("Shoot Failed :(");
 		if(angle >= 180)
 			angle-=10;
 		else if(angle <= 90)
@@ -48,13 +59,13 @@ public class ShootingRange implements Behavior , ShootingRangeListener {
 
 	@Override
 	public void shootInvalidAngle() {
-		
+		System.out.println("InvalidAngle");
+		angle = 90;
 	}
 
 	@Override
 	public void error(String message) {
-		// TODO Auto-generated method stub
-		
+		System.err.println(message);
 	}
 	
 

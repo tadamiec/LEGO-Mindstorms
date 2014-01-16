@@ -26,13 +26,13 @@ public class CollisionFront implements Behavior {
 		LCD.clear();
 		LCD.drawString("Mode : CollisionFront", 0, 0);
 
-		if (Main.level == 42){
-			Main.pilot.travel(-10);
-			Delay.msDelay(10000);
-			Main.pilot.travel(200);
-		}
+//		if (Main.level == 42){
+//			Main.pilot.travel(-10);
+//			Delay.msDelay(10000);
+//			Main.pilot.travel(200);
+//		}
 
-		else {
+//		else {
 
 			if (Main.door) {
 				Main.pilot.stop();
@@ -45,7 +45,7 @@ public class CollisionFront implements Behavior {
 				Main.pilot.travel(-10);
 				Main.pilot.rotate(90);
 			}
-		}
+		
 
 		while (Main.pilot.isMoving() && !suppressed)
 			Thread.yield();

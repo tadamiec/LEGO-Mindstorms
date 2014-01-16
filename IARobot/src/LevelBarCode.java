@@ -1,13 +1,14 @@
 import lejos.nxt.LightSensor;
-import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import lejos.robotics.subsumption.Behavior;
+
 
 
 public class LevelBarCode implements Behavior{
 	private boolean suppressed = false;
 	private LightSensor ls;
-	
+	private boolean EndBarcode = false;
+
 	public LevelBarCode(SensorPort SP,int Dark,int Light){
 		ls = new LightSensor(SP);
 		ls.setHigh(Light);
@@ -15,7 +16,7 @@ public class LevelBarCode implements Behavior{
 	}
 	
 	public boolean takeControl() {
-		return true;
+		return !EndBarcode;
 	}
 
 	public void action() {
@@ -23,35 +24,35 @@ public class LevelBarCode implements Behavior{
 		boolean wasWhite = false;
 		boolean wasBlack = true;
 		
-		boolean EndBarcode = false;
 		long Time = System.currentTimeMillis();
-		
 		while(!EndBarcode && !suppressed){
+			System.out.println(ls.getLightValue());
 			Main.pilot.forward();
-			if((wasWhite && ls.getLightValue() < 1000)){
+			if((wasWhite && ls.getLightValue() < 1700)){
 				wasWhite = false;
 				wasBlack = true;
 				Time = System.currentTimeMillis();
 
 			}
-			else if(wasBlack && ls.getLightValue() > 1000){
+			else if(wasBlack && ls.getLightValue() > 1700){
 				wasWhite = true;
 				wasBlack = false;
 				Time = System.currentTimeMillis();
 			}
-			else if((System.currentTimeMillis() - Time) > 3000){
+			else if((System.currentTimeMillis() - Time) > 1000){
 				EndBarcode = true;
 			}
 				
 			Thread.yield();
 		}
 		suppress();
-		Main.level++;		
+		Main.level++;
+		Main.pilot.stop();
 	}
 
 	@Override
 	public void suppress() {
-		
+		suppressed = true;
 	}
 	
 }
