@@ -58,11 +58,44 @@ public class SymbolsReader implements Behavior {
 				firstIncrement = false;
 			}
 
+<<<<<<< HEAD
 			while (ls.getLightValue() < 1700) {
 				Main.pilot.setRotateSpeed(30);
 				if (!leftChecked) {
 					Main.pilot.rotateLeft();
 					incrementedAngle -= Main.pilot.getAngleIncrement();
+=======
+			// if (!minus && (limitAngle > (3 * angle))) {
+			// currentTime = System.currentTimeMillis();
+			// symbolTravelData.setAngle(limitAngle);
+			// symbolTravelData.setTime(currentTime - startTime);
+			// Main.symbolTravelDataList.add(symbolTravelData);
+			// System.out.println(limitAngle);
+			// System.out.println(currentTime - startTime);
+			// } else if (minus && (limitAngle > (3 * angle))) {
+			// currentTime = System.currentTimeMillis();
+			// symbolTravelData.setAngle(limitAngle);
+			// symbolTravelData.setTime(currentTime - startTime);
+			// Main.symbolTravelDataList.add(symbolTravelData);
+			// System.out.println(-limitAngle);
+			// System.out.println(currentTime - startTime);
+			// }
+			if (!minus && (limitAngle > (3 * angle))) {
+				currentTime = System.currentTimeMillis();
+				symbolTravelData.setAngle(limitAngle);
+				symbolTravelData.setTime(currentTime - startTime);
+//				Main.symbolTravelDataList.add(symbolTravelData);
+				System.out.println(limitAngle);
+				System.out.println(currentTime - startTime);
+			} else if (minus && (limitAngle > (3 * angle))) {
+				currentTime = System.currentTimeMillis();
+				symbolTravelData.setAngle(limitAngle);
+				symbolTravelData.setTime(currentTime - startTime);
+//				Main.symbolTravelDataList.add(symbolTravelData);
+				System.out.println(-limitAngle);
+				System.out.println(currentTime - startTime);
+			}
+>>>>>>> branch 'master' of https://github.com/tadamiec/LEGO-Mindstorms.git
 
 					// Get angle to store
 					storeAngle = incrementedAngle;
