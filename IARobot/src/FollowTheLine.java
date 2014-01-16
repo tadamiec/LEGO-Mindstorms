@@ -30,40 +30,48 @@ public class FollowTheLine implements Behavior {
 		LCD.drawString("FollowTheLine", 0, 0);
 		suppressed = false;
 		long currentTime;
-		boolean bothSide = false;
-		// boolean tryRight = false;
-		// boolean tryLeft = false;
+		 boolean bothSide = false;
+//		boolean tryRight = false;
+//		boolean tryLeft = false;
 		boolean fromLeft = false;
+//		int bothSide;
 
 		while ((Main.ftl || Main.level == 4) && !suppressed) {
 			Main.pilot.forward();
-			currentTime = System.currentTimeMillis();
-			fromLeft = false;
 
-			if (!tinyAngle(200)) {
+			if (!tinyAngle(400)) {
+				currentTime = System.currentTimeMillis();
 
-				while (ls.getLightValue() < 1700) {
+				fromLeft = false;
+//				bothSide =0;
+				while (ls.getLightValue() < 1400) {
+
 					Main.pilot.setRotateSpeed(45);
 
-					if (/* !tryRight && */fromLeft) {
+					 if (fromLeft) {
+//					if (!tryRight) {
 						Main.pilot.rotateRight();
 						if (System.currentTimeMillis() - currentTime > 3000) {
-							// tryRight = true;
-
+//							tryRight = true;
+//							bothSide++;
 							// bothSide = tryLeft && tryRight;
 							bothSide = true;
 
 							Main.pilot.setRotateSpeed(90);
 
 							Main.pilot.rotate(145);
+//							currentTime = System.currentTimeMillis();
 							break;
 
 						}
-					} else {
-						// if (/*!tryLeft &&*/ !fromLeft) {
+//					}
+					 } else {
+//					if (!tryLeft && tryRight) {
 						Main.pilot.rotateLeft();
 						if (System.currentTimeMillis() - currentTime > 2000) {
-							// tryLeft = true;
+//							tryLeft = true;
+//							tryRight = false;
+//							bothSide++;
 							fromLeft = true;
 							Main.pilot.setRotateSpeed(90);
 
@@ -72,18 +80,26 @@ public class FollowTheLine implements Behavior {
 
 						}
 					}
+//					if(bothSide == 2){
+//						Main.ftl = false;
+//						break;
+//					}
 				}
+				
 			}
 
-			if (bothSide)
+			if (bothSide){
 				Main.ftl = false;
+				if (Main.level == 4)
+					Main.level = 0;
+			}
+			
 
 			Thread.yield();
 
 		}
 
-		if (Main.level == 4)
-			Main.level = 0;
+		
 
 		LCD.clear();
 
@@ -102,26 +118,28 @@ public class FollowTheLine implements Behavior {
 		long currentTime = System.currentTimeMillis();
 
 		boolean left = false;
-		while (ls.getLightValue() < 1700) {
-			Main.pilot.setRotateSpeed(90);
+		while (ls.getLightValue() < 1400) {
+			Main.pilot.setRotateSpeed(45);
 			if (left) {
+
 				Main.pilot.rotateRight();
-				if (System.currentTimeMillis() - currentTime > time) {
+				if (System.currentTimeMillis() - currentTime > 2 * time) {
 					// tryRight = true;
 
 					// bothSide = tryLeft && tryRight;
 
-					Main.pilot.rotate((time / 1000) * 90);
+					Main.pilot.rotate((time / 1000) * 45);
 					return false;
 				}
 			} else {
 				// if (/*!tryLeft &&*/ !fromLeft) {
+
 				Main.pilot.rotateLeft();
 				if (System.currentTimeMillis() - currentTime > time) {
 					// tryLeft = true;
 					left = true;
 
-					Main.pilot.rotate(-time / 1000 * 90);
+					// Main.pilot.rotate(-time / 1000 * 90);
 					currentTime = System.currentTimeMillis();
 
 				}
