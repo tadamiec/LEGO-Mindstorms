@@ -80,11 +80,17 @@ public class FollowTheBridge implements Behavior {
 			int l7 = ls.getLightValue();
 			Delay.msDelay(100);
 			int l8 = ls.getLightValue();
+			Delay.msDelay(100);
+			int l9 = ls.getLightValue();
+			Delay.msDelay(100);
+			int l10 = ls.getLightValue();
+			Delay.msDelay(100);
+			int l11 = ls.getLightValue();
 
-			int[] l = { l1, l2, l3, l4, l5, l6, l7, l8 };
+			int[] l = { l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11 };
 
-			for (int j = 0; j < 7; j++) {
-				if ((l[j] - l[j + 1] > 100 || l[j + 1] - l[j] > 100)) {
+			for (int j = 0; j < 10; j++) {
+				if (Math.abs(l[j] - l[j + 1]) > 100) {
 					Main.colorChanged = true;
 				}
 
